@@ -9,9 +9,17 @@ LIBS += -L"/home/chouchous/SFML2.5/lib/" -lsfml-graphics -lsfml-window -lsfml-sy
 SOURCES += main.cpp \
     ECS/entity.cpp \
     ECS/component_base.cpp \
-    ECS/entitymanager.cpp
+    ECS/entitymanager.cpp \
+    ECS/system_base.cpp \
+    ECS/systemmanager.cpp
 
 HEADERS += \
     ECS/entity.h \
     ECS/component_base.h \
-    ECS/entitymanager.h
+    ECS/entitymanager.h \
+    ECS/system_base.h \
+    ECS/systemmanager.h \
+    Observer/Communicator.h \
+    Observer/Message.h \
+    Observer/MessageHandler.h \
+    Observer/Observer.h

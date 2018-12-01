@@ -5,12 +5,13 @@
 #include <memory>
 #include "component_base.h"
 
-using ComponentPtr =std::unique_ptr<Component_Base>;
+using ComponentPtr =std::shared_ptr<Component_Base>;
 
 class Entity {
 
 private:
     unsigned int entityId;
+    unsigned int bitmask;
     std::vector<ComponentPtr> components;
 
 public:
