@@ -7,19 +7,24 @@ INCLUDEPATH += /home/chouchous/SFML2.5/include
 LIBS += -L"/home/chouchous/SFML2.5/lib/" -lsfml-graphics -lsfml-window -lsfml-system
 
 SOURCES += main.cpp \
-    ECS/entity.cpp \
-    ECS/component_base.cpp \
-    ECS/entitymanager.cpp \
-    ECS/system_base.cpp \
-    ECS/systemmanager.cpp
+    ECS/Core/entity.cpp \
+    ECS/Core/system_base.cpp \
+    ECS/Core/systemmanager.cpp \
+    Utilities/idgenerator.cpp \
+    ECS/Components/component_position.cpp
 
 HEADERS += \
-    ECS/entity.h \
-    ECS/component_base.h \
-    ECS/entitymanager.h \
-    ECS/system_base.h \
-    ECS/systemmanager.h \
+    ECS/Core/entity.h \
+    ECS/Core/component_base.h \
+    ECS/Core/system_base.h \
+    ECS/Core/systemmanager.h \
+    ECS/Core/componenttypes.h \
     Observer/Communicator.h \
     Observer/Message.h \
     Observer/MessageHandler.h \
-    Observer/Observer.h
+    Observer/Observer.h \
+    Utilities/Helpers.h \
+    Utilities/RandomGenerator.h \
+    Utilities/Utilities.h \
+    Utilities/idgenerator.h \
+    ECS/Components/component_position.h

@@ -5,7 +5,7 @@ EntityManager::EntityManager()
 
 }
 
-int EntityManager::addEntity(const std::__cxx11::string &l_entityFile)
+int EntityManager::addEntity(const std::string &l_entityFile)
 {
     //todo
 }

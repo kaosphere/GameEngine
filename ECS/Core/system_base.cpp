@@ -7,9 +7,9 @@ System_Base::System_Base(const System& l_id, SystemManager* l_systemMgr)
 System_Base::~System_Base() { Purge(); }
 
 bool System_Base::AddEntity(const Entity& l_entity) {
-    if (HasEntity(l_entity)) { return false; }
+    /*if (HasEntity(l_entity)) { return false; }
     m_entities.emplace_back(l_entity);
-    return true;
+    return true;*/
 }
 
 bool System_Base::HasEntity(const Entity& l_entity) const {
