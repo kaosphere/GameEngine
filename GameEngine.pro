@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     ECS/Core/system_base.cpp \
     ECS/Core/systemmanager.cpp \
     Utilities/idgenerator.cpp \
-    ECS/Components/component_position.cpp
+    ECS/Components/component_position.cpp \
+    ECS/Components/component_speed.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -27,4 +28,5 @@ HEADERS += \
     Utilities/RandomGenerator.h \
     Utilities/Utilities.h \
     Utilities/idgenerator.h \
-    ECS/Components/component_position.h
+    ECS/Components/component_position.h \
+    ECS/Components/component_speed.h
