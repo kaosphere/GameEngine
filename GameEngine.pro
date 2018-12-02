@@ -29,4 +29,5 @@ HEADERS += \
     Utilities/Utilities.h \
     Utilities/idgenerator.h \
     ECS/Components/component_position.h \
-    ECS/Components/component_speed.h
+    ECS/Components/component_speed.h \
+    ECS/Core/systemtypes.h

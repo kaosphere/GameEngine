@@ -5,13 +5,10 @@
 #include "entity.h"
 #include "EntityEvents.h"
 #include "Observer/Observer.h"
+#include "systemtypes.h"
 
 using EntityList = std::vector<Entity>;
 //using Requirements = std::vector<Bitmask>;
-
-enum class System{
-    Renderer = 0, Movement, Collision, Control, State, SheetAnimation, Sound, COUNT
-};
 
 class SystemManager;
 class System_Base : public Observer{
