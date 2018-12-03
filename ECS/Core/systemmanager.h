@@ -25,8 +25,8 @@ public:
 
     bool removeSystem(const SystemType_t& t);
 
-    bool registerEntity(std::shared_ptr<Entity>);
-    bool removeEntity(const std::string& entityId);
+    bool registerEntity(std::shared_ptr<Entity> e);
+    bool removeEntity(std::shared_ptr<Entity> e);
 
     void purgeSystems();
     void purgeEntities();
