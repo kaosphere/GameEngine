@@ -13,7 +13,8 @@ private:
 public:
     static const int ID_SIZE;
 
-    IdGenerator();
+    IdGenerator(){}
+    static void initGenerator();
     static std::string generateRandomID(int length = ID_SIZE);
 };
 

@@ -7,7 +7,7 @@ const char IdGenerator::ALPHANUM[] =
 
 const int IdGenerator::ID_SIZE = 32;
 
-IdGenerator::IdGenerator()
+void IdGenerator::initGenerator()
 {
     /* initialize random seed: */
     srand (time(NULL));

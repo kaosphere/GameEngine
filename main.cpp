@@ -1,6 +1,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "inits.h"
 #include "ECS/Core/entity.h"
 #include "ECS/Core/componenttypes.h"
 #include "ECS/Components/component_position.h"
@@ -8,6 +9,8 @@
 
 int main()
 {
+    initializeSystem();
+
     Entity test;
     Entity test2;
 
