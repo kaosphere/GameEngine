@@ -12,6 +12,12 @@ public:
     virtual ~Component_Position(){}
     virtual std::string getInfo();
 
+    float getX() const;
+    void setX(float value);
+
+    float getY() const;
+    void setY(float value);
+
 protected:
     static const ComponentType_t Component_Base::_mType = position;
     float x;

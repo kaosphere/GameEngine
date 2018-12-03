@@ -14,3 +14,23 @@ std::__cxx11::string Component_Position::getInfo()
     return s;
 }
 
+float Component_Position::getX() const
+{
+    return x;
+}
+
+void Component_Position::setX(float value)
+{
+    x = value;
+}
+
+float Component_Position::getY() const
+{
+    return y;
+}
+
+void Component_Position::setY(float value)
+{
+    y = value;
+}
+
