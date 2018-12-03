@@ -18,7 +18,7 @@ private:
     std::vector<ComponentPtr> components;
 
     // Private copy constructor
-    Entity(const Entity& e){}
+    Entity(const Entity& e __attribute__((unused))){}
 
 public:
     Entity();
