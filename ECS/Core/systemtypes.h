@@ -1,7 +1,7 @@
 #ifndef SYSTEMTYPES_H
 #define SYSTEMTYPES_H
 
-enum class System{
+enum class SystemType_t{
     _invalidSystemType = 0,
     Renderer,
     Movement,

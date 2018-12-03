@@ -1,38 +1,37 @@
 #ifndef SYSTEM_BASE_H
 #define SYSTEM_BASE_H
 
+#include <memory>
 #include "systemmanager.h"
 #include "entity.h"
 #include "EntityEvents.h"
 #include "Observer/Observer.h"
 #include "systemtypes.h"
 
-using EntityList = std::vector<Entity>;
-//using Requirements = std::vector<Bitmask>;
+using EntityList = std::vector<std::shared_ptr<Entity>>;
 
 class SystemManager;
 class System_Base : public Observer{
 public:
-    System_Base(const System& l_id, SystemManager* l_systemMgr);
+    System_Base(const SystemType_t& l_id);
     virtual ~System_Base();
 
-    bool AddEntity(const Entity& l_entity);
-    bool HasEntity(const Entity& l_entity) const;
-    bool RemoveEntity(const Entity& l_entity);
+    bool addEntity(std::shared_ptr<Entity> l_entity);
+    bool hasEntity(std::shared_ptr<Entity> l_entity) const;
+    bool removeEntity(std::shared_ptr<Entity> l_entity);
 
-    System GetId() const;
+    SystemType_t getId() const;
+    virtual std::string getInfo() = 0;
 
-    //bool FitsRequirements(const Bitmask& l_bits) const;
-    void Purge();
+    bool fitsRequirements(const Bitmask& l_bits) const;
+    void purge();
 
-    virtual void Update(float l_dT) = 0;
-    virtual void HandleEvent(const Entity& l_entity, const EntityEvent& l_event) = 0;
+    virtual void update(float l_dT) = 0;
+    virtual void handleEvent(const Entity& l_entity, const EntityEvent& l_event) = 0;
 protected:
-    System m_id;
-    //Requirements m_requiredComponents;
+    SystemType_t m_id;
+    Bitmask m_requiredComponents;
     EntityList m_entities;
-
-    SystemManager* m_systemManager;
 };
 
 #endif // SYSTEM_BASE_H
