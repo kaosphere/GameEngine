@@ -14,3 +14,23 @@ std::__cxx11::string Component_Speed::getInfo()
     return s;
 }
 
+float Component_Speed::getDx() const
+{
+    return dx;
+}
+
+void Component_Speed::setDx(float value)
+{
+    dx = value;
+}
+
+float Component_Speed::getDy() const
+{
+    return dy;
+}
+
+void Component_Speed::setDy(float value)
+{
+    dy = value;
+}
+

@@ -11,6 +11,12 @@ public:
     virtual ~Component_Speed(){}
     virtual std::string getInfo();
 
+    float getDx() const;
+    void setDx(float value);
+
+    float getDy() const;
+    void setDy(float value);
+
 protected:
     static const ComponentType_t Component_Base::_mType = speed;
     float dx;
