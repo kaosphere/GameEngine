@@ -2,8 +2,7 @@
 #include "system_base.h"
 #include "systemmanager.h"
 
-System_Base::System_Base(const SystemType_t& l_id)
-    : m_id(l_id) {}
+System_Base::System_Base(){}
 
 System_Base::~System_Base() { purge(); }
 

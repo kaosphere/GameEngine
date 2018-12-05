@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     ECS/Core/systemmanager.cpp \
     Utilities/idgenerator.cpp \
     ECS/Components/component_position.cpp \
-    ECS/Components/component_speed.cpp
+    ECS/Components/component_speed.cpp \
+    ECS/Systems/system_move.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -31,4 +32,5 @@ HEADERS += \
     ECS/Components/component_position.h \
     ECS/Components/component_speed.h \
     ECS/Core/systemtypes.h \
-    inits.h
+    inits.h \
+    ECS/Systems/system_move.h

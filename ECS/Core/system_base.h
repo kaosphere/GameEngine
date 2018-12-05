@@ -13,7 +13,7 @@ using EntityList = std::vector<std::shared_ptr<Entity>>;
 class SystemManager;
 class System_Base : public Observer{
 public:
-    System_Base(const SystemType_t& l_id);
+    System_Base();
     virtual ~System_Base();
 
     bool addEntity(std::shared_ptr<Entity> l_entity);
@@ -29,7 +29,7 @@ public:
     virtual void update(float l_dT) = 0;
     virtual void handleEvent(const Entity& l_entity, const EntityEvent& l_event) = 0;
 protected:
-    SystemType_t m_id;
+    static const SystemType_t m_id = _invalidSystemType;
     Bitmask m_requiredComponents;
     EntityList m_entities;
 };
