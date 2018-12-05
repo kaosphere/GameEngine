@@ -55,7 +55,8 @@ public:
     C_type* getComponent(const ComponentType_t& c)
     {
         for(auto iter = components.begin(); iter != components.end(); ++iter) {
-            if ((*iter)->getType() == c) {
+            ComponentType_t t = ((C_type*)(iter->get()))->getType();
+            if (t == c) {
                 return (C_type*)iter->get();
             }
         }

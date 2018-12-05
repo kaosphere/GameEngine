@@ -9,6 +9,7 @@ class Component_Speed : public Component_Base
 public:
     Component_Speed();
     virtual ~Component_Speed(){}
+    virtual ComponentType_t getType() const { return _mType;}
     virtual std::string getInfo();
 
     float getDx() const;

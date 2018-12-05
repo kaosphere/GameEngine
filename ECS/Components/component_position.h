@@ -10,6 +10,7 @@ class Component_Position : public Component_Base
 public:
     Component_Position();
     virtual ~Component_Position(){}
+    virtual ComponentType_t getType() const { return _mType;}
     virtual std::string getInfo();
 
     float getX() const;

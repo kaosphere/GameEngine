@@ -11,6 +11,7 @@
 
 int main()
 {
+    int cnt =0;
     initializeSystem();
 
     std::shared_ptr<Entity> p(new Entity());
@@ -24,7 +25,10 @@ int main()
 
     manager.registerEntity(p);
 
-
+    while(cnt!=20) {
+        manager.update(1.0);
+        cnt++;
+    }
 
     return EXIT_SUCCESS;
 }

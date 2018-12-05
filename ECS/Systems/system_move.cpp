@@ -1,3 +1,4 @@
+#include <iostream>
 #include "system_move.h"
 #include "ECS/Components/component_position.h"
 #include "ECS/Components/component_speed.h"
@@ -12,14 +13,20 @@ System_Move::System_Move()
 void System_Move::update(float l_dT)
 {
     for(auto iter = m_entities.begin(); iter != m_entities.end(); ++iter) {
-        // Update position value with speed value
-        (*iter)->getComponent<Component_Position>(position)->setX(
-                   (*iter)->getComponent<Component_Position>(position)->getX() +
-                   (*iter)->getComponent<Component_Speed>(speed)->getDx() );
+        Component_Position* pos = (*iter)->getComponent<Component_Position>(position);
+        Component_Speed *sp = (*iter)->getComponent<Component_Speed>(speed);
 
-        (*iter)->getComponent<Component_Position>(position)->setY(
-                    (*iter)->getComponent<Component_Position>(position)->getY() +
-                   (*iter)->getComponent<Component_Speed>(speed)->getDy() );
+        if(pos == NULL || sp == NULL) {
+            return;
+        }
+
+        // Update position value with speed value
+        pos->setX(pos->getX() + sp->getDx());
+        pos->setY(pos->getY() + sp->getDy());
+
+        std::cout << (*iter)->getEntityId() << " moved to " <<
+                     pos->getX() << "," <<
+                     pos->getY() << std::endl;
     }
 }
 

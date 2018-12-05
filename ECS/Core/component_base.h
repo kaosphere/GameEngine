@@ -8,7 +8,7 @@
 class Component_Base{
 public:
     virtual ~Component_Base(){}
-    ComponentType_t getType() const { return _mType;}
+    virtual ComponentType_t getType() const { return _mType;}
     virtual std::string getInfo() = 0;
 protected:
     /// Default invalid component type

@@ -2,7 +2,8 @@
 
 Component_Speed::Component_Speed()
 {
-
+    dx = 1;
+    dy = 1;
 }
 
 std::__cxx11::string Component_Speed::getInfo()
