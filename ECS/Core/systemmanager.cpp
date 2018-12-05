@@ -1,8 +1,19 @@
 #include "systemmanager.h"
+#include <iostream>
 
 SystemManager::SystemManager()
 {
 
+}
+
+bool SystemManager::hasSystem(const SystemType_t &t)
+{
+    for(auto iter = m_systems.begin(); iter != m_systems.end(); ++iter) {
+        if ((*iter)->getId() == t) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool SystemManager::removeSystem(const SystemType_t &t)
@@ -29,6 +40,7 @@ bool SystemManager::registerEntity(std::shared_ptr<Entity> e)
     for(auto& itr : m_systems) {
         if (itr->fitsRequirements(e->getMask())) {
             itr->addEntity(e);
+            std::cout << "entity " << e->getEntityId() << " was added to system " << itr->getId() << std::endl;
             return true;
         }
     }

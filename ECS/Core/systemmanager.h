@@ -13,15 +13,25 @@ class SystemManager
 {
 public:
     SystemManager();
-    ~SystemManager();
+    ~SystemManager(){}
 
     template <typename S_type>
-    void addSystem(const SystemType_t& t)
-    {}
+    bool addSystem(const SystemType_t& t)
+    {
+        // Add system if we don't have one of this type already
+        if (!hasSystem(t) && t != _invalidSystemType) {
+            S_type *ptr = new S_type;
+            m_systems.emplace_back(ptr);
+            return true;
+        }
+        return false;
+    }
 
     template <typename S_type>
     void getSystem(const SystemType_t& t)
     {}
+
+    bool hasSystem(const SystemType_t& t);
 
     bool removeSystem(const SystemType_t& t);
 
