@@ -6,7 +6,7 @@ enum ComponentType_t {
     position,
     speed,
     area,
-    COUNT
+    componentTypeCOUNT
 };
 
 #endif // COMPONENTTYPES_H
