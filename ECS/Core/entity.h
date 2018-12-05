@@ -8,7 +8,7 @@
 #include "Types/Bitmask.h"
 #include "Utilities/idgenerator.h"
 
-using ComponentPtr =std::unique_ptr<Component_Base>;
+using ComponentPtr =std::shared_ptr<Component_Base>;
 
 class Entity {
 
@@ -26,6 +26,12 @@ public:
 
     std::string getEntityId() const;
 
+    /**
+     *  @brief addComponent
+     *
+     * Add a component to the entity
+     * @param c Component type to be added
+     */
     template <typename C_type>
     bool addComponent(const ComponentType_t &c)
     {
@@ -37,6 +43,23 @@ public:
             return true;
         }
         return false;
+    }
+
+    /**
+     * @brief getComponent
+     *
+     * Gets component corresponding to the specified component type
+     * @param c Component type
+     */
+    template <typename C_type>
+    C_type* getComponent(const ComponentType_t& c)
+    {
+        for(auto iter = components.begin(); iter != components.end(); ++iter) {
+            if ((*iter)->getType() == c) {
+                return (C_type*)iter->get();
+            }
+        }
+        return NULL;
     }
 
     bool removeComponent(const ComponentType_t& c);
