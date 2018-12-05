@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <sstream>
+#include <memory>
 
 namespace Utils{
 	#ifdef RUNNING_WINDOWS

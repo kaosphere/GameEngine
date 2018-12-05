@@ -3,12 +3,6 @@
 #include <fstream>
 
 namespace Utils {
-
-    template<typename T, typename... Args>
-    std::unique_ptr<T> make_unique(Args&&... args) {
-        return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-    }
-
 	inline float GetSFMLTextMaxHeight(const sf::Text& l_text) {
 		auto charSize = l_text.getCharacterSize();
 		auto font = l_text.getFont();
