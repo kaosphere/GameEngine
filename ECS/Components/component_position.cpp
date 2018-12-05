@@ -2,7 +2,8 @@
 
 Component_Position::Component_Position()
 {
-
+    x = 0;
+    y = 0;
 }
 
 std::__cxx11::string Component_Position::getInfo()
