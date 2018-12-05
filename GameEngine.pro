@@ -37,7 +37,8 @@ HEADERS += \
     Resources/AudioManager.h \
     Resources/FontManager.h \
     Resources/ResourceManager.h \
-    Resources/TextureManager.h
+    Resources/TextureManager.h \
+    SharedContext.h
 
 DISTFILES += \
     textures.cfg
