@@ -78,6 +78,12 @@ namespace Utils{
 		return files;
 	}
 	#endif
+
+    template<typename T, typename... Args>
+    std::unique_ptr<T> make_unique(Args&&... args) {
+        return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+    }
+
 	inline void ReadQuotedString(std::stringstream& l_stream, std::string& l_string)
 	{
 		l_stream >> l_string;

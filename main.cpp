@@ -8,11 +8,14 @@
 #include "ECS/Components/component_speed.h"
 #include "ECS/Systems/system_move.h"
 #include "ECS/Core/system_base.h"
+#include "Resources/TextureManager.h"
 
 int main()
 {
     int cnt =0;
     initializeSystem();
+
+    TextureManager tex;
 
     std::shared_ptr<Entity> p(new Entity());
     Entity test2;

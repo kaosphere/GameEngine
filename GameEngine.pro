@@ -33,4 +33,11 @@ HEADERS += \
     ECS/Components/component_speed.h \
     ECS/Core/systemtypes.h \
     inits.h \
-    ECS/Systems/system_move.h
+    ECS/Systems/system_move.h \
+    Resources/AudioManager.h \
+    Resources/FontManager.h \
+    Resources/ResourceManager.h \
+    Resources/TextureManager.h
+
+DISTFILES += \
+    textures.cfg
