@@ -6,19 +6,25 @@
 #include "ECS/Core/componenttypes.h"
 #include "ECS/Components/component_position.h"
 #include "ECS/Components/component_speed.h"
+#include "ECS/Systems/system_move.h"
+#include "ECS/Core/system_base.h"
 
 int main()
 {
     initializeSystem();
 
-    Entity test;
+    std::shared_ptr<Entity> p(new Entity());
     Entity test2;
+    SystemManager manager;
+    manager.addSystem<System_Move>(Movement);
 
-    test.addComponent<Component_Position>(position);
-    test.addComponent<Component_Speed>(speed);
+    p->addComponent<Component_Position>(position);
+    p->addComponent<Component_Speed>(speed);
     test2.addComponent<Component_Position>(position);
-    std::cout << test.getInfo();
-    std::cout << test2.getInfo();
+
+    manager.registerEntity(p);
+
+
 
     return EXIT_SUCCESS;
 }
