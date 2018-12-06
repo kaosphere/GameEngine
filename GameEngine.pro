@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     Utilities/idgenerator.cpp \
     ECS/Components/component_position.cpp \
     ECS/Components/component_speed.cpp \
-    ECS/Systems/system_move.cpp
+    ECS/Systems/system_move.cpp \
+    ThreadWorkers/FileLoader.cpp \
+    ECS/Systems/system_renderer.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -38,7 +40,10 @@ HEADERS += \
     Resources/FontManager.h \
     Resources/ResourceManager.h \
     Resources/TextureManager.h \
-    SharedContext.h
+    SharedContext.h \
+    ThreadWorkers/FileLoader.h \
+    ThreadWorkers/Worker.h \
+    ECS/Systems/system_renderer.h
 
 DISTFILES += \
     textures.cfg

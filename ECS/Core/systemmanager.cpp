@@ -1,4 +1,5 @@
 #include "systemmanager.h"
+#include "ECS/Systems/system_renderer.h"
 #include <iostream>
 
 SystemManager::SystemManager()
@@ -72,4 +73,15 @@ void SystemManager::purgeEntities()
 void SystemManager::update(float dt)
 {
     for(auto& itr : m_systems) { itr->update(dt); }
+}
+
+void SystemManager::draw()
+{
+    // Get render system and draw
+    for(auto& itr : m_systems) {
+        if(itr->getId() == Renderer) {
+            System_Renderer *renderer = dynamic_cast<System_Renderer*>(itr.get());
+            renderer->draw();
+        }
+    }
 }

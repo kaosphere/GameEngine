@@ -42,6 +42,7 @@ public:
     void purgeEntities();
 
     void update(float dt);
+    void draw();
 
 protected:
     std::vector<std::unique_ptr<System_Base>> m_systems;
