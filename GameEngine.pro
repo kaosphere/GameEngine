@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     ECS/Components/component_speed.cpp \
     ECS/Systems/system_move.cpp \
     ThreadWorkers/FileLoader.cpp \
-    ECS/Systems/system_renderer.cpp
+    ECS/Systems/system_renderer.cpp \
+    Map/tile.cpp \
+    Map/map.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -43,7 +45,9 @@ HEADERS += \
     SharedContext.h \
     ThreadWorkers/FileLoader.h \
     ThreadWorkers/Worker.h \
-    ECS/Systems/system_renderer.h
+    ECS/Systems/system_renderer.h \
+    Map/tile.h \
+    Map/map.h
 
 DISTFILES += \
     textures.cfg
