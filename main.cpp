@@ -9,13 +9,18 @@
 #include "ECS/Systems/system_move.h"
 #include "ECS/Core/system_base.h"
 #include "Resources/TextureManager.h"
+#include "Map/map.h""
 
 int main()
 {
     int cnt =0;
     initializeSystem();
 
+    // Create the main window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+
     TextureManager tex;
+    Map m(&tex);
 
     std::shared_ptr<Entity> p(new Entity());
     Entity test2;
@@ -28,9 +33,24 @@ int main()
 
     manager.registerEntity(p);
 
-    while(cnt!=20) {
-        manager.update(1.0);
-        cnt++;
+    // Start the game loop
+    while (window.isOpen())
+    {
+        // Process events
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        // Clear screen
+        window.clear();
+
+        m.drawMap(&window);
+
+        // Update the window
+        window.display();
     }
 
     return EXIT_SUCCESS;
