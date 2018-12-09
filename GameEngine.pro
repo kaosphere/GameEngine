@@ -50,4 +50,5 @@ HEADERS += \
     Map/map.h
 
 DISTFILES += \
-    textures.cfg
+    textures.cfg \
+    media/maps/test.map

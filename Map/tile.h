@@ -15,7 +15,7 @@ enum TileType {
 
 #define TILE_LENGTH 100
 #define TILE_WIDTH 50
-#define OFFSET 300
+#define OFFSET 200
 
 class Tile
 {

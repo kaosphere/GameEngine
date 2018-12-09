@@ -1,38 +1,41 @@
 #include "map.h"
 #include <algorithm>
-#include <Utilities/Utilities.h>
+#include <iostream>
+#include "Utilities/Utilities.h"
+#include "Utilities/Helpers.h"
 
 Map::Map(TextureManager *t)
 {
     m_texMgr = t;
 
-    std::shared_ptr<Tile> p = NULL;
-    t->RequireResource("tile-top");
-    p = std::make_shared<Tile>(sf::Vector2f(0,0),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(1,0),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(2,0),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(0,1),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(1,1),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(2,1),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(0,2),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(1,2),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
-    p = std::make_shared<Tile>(sf::Vector2f(2,2),0,grass, *t->GetResource("tile-top"));
-    m_tiles.emplace_back(p);
+    loadMapFromFile("media/maps/test.map");
 
     sortMapTiles();
 }
 
 bool Map::loadMapFromFile(std::__cxx11::string path)
 {
+    std::ifstream file(path);
+    std::string line;
+    std::string token;
+    std::shared_ptr<Tile> p = NULL;
 
+    while (std::getline(file, line)) {
+        std::stringstream keystream(line);
+        std::vector<std::string> tokens = Utils::splitLine(line, std::string(" "));
+
+        if(tokens.size()) {
+            if(tokens[0] == "tile") {
+                m_texMgr->RequireResource("tile-top");
+                p = std::make_shared<Tile>(sf::Vector2f(std::stoi(tokens[2]),std::stoi(tokens[3])),
+                                           std::stoi(tokens[4]),
+                                           (TileType)std::stoi(tokens[1]),
+                                           *m_texMgr->GetResource("tile-top"));
+                m_tiles.emplace_back(p);
+            }
+        }
+    }
+    file.close();
 }
 
 void Map::sortMapTiles()

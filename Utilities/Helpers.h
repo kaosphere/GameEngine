@@ -45,4 +45,17 @@ namespace Utils {
 			}
 		);
 	}
+
+    std::vector<std::string> splitLine(std::string line, std::string delimiter)
+    {
+        size_t pos = 0;
+        std::vector<std::string> tokens;
+        while ((pos = line.find(delimiter)) != std::string::npos) {
+            tokens.emplace_back(line.substr(0, pos));
+            line.erase(0, pos + delimiter.length());
+        }
+        tokens.emplace_back(line);
+
+        return tokens;
+    }
 }

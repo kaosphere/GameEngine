@@ -47,6 +47,12 @@ void Tile::updateScreenPos()
     m_tileSprite.setPosition(m_screenPos.x, m_screenPos.y);
 }
 
+/**
+ * @brief Tile::operator < This operator is design to sort the tiles from the back of the map to the front
+ * in order to be drawn in the correct order.
+ * @param rhs
+ * @return
+ */
 bool Tile::operator<(const Tile &rhs)
 {
     return (worldPos().y < rhs.worldPos().y) ||
