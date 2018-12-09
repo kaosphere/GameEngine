@@ -1,4 +1,6 @@
 #include "map.h"
+#include <algorithm>
+#include <Utilities/Utilities.h>
 
 Map::Map(TextureManager *t)
 {
@@ -7,7 +9,6 @@ Map::Map(TextureManager *t)
     std::shared_ptr<Tile> p = NULL;
     t->RequireResource("tile-top");
     p = std::make_shared<Tile>(sf::Vector2f(0,0),0,grass, *t->GetResource("tile-top"));
-    t->RequireResource("tile-top");
     m_tiles.emplace_back(p);
     p = std::make_shared<Tile>(sf::Vector2f(1,0),0,grass, *t->GetResource("tile-top"));
     m_tiles.emplace_back(p);
@@ -25,11 +26,18 @@ Map::Map(TextureManager *t)
     m_tiles.emplace_back(p);
     p = std::make_shared<Tile>(sf::Vector2f(2,2),0,grass, *t->GetResource("tile-top"));
     m_tiles.emplace_back(p);
+
+    sortMapTiles();
 }
 
 bool Map::loadMapFromFile(std::__cxx11::string path)
 {
 
+}
+
+void Map::sortMapTiles()
+{
+    std::sort(m_tiles.begin(), m_tiles.end(), Utils::PComp<Tile>);
 }
 
 void Map::drawMap(sf::RenderWindow *w)

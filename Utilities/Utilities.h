@@ -102,4 +102,9 @@ namespace Utils{
 	inline T Interpolate(float tBegin, float tEnd, const T& begin_val, const T& end_val, float tX) {
 		return static_cast<T>((((end_val - begin_val) / (tEnd - tBegin)) * (tX - tBegin)) + begin_val);
 	}
+
+    template <typename T> bool PComp(std::shared_ptr<T> a, std::shared_ptr<T> b)
+    {
+       return *a.get() < *b.get();
+    }
 }

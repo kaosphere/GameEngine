@@ -23,8 +23,8 @@ public:
     Tile();
     Tile(sf::Vector2f wp, int z, TileType type, const sf::Texture& t);
 
-    int z() const;
-    void setZ(int z);
+    float z() const;
+    void setZ(float z);
 
     sf::Sprite tileSprite() const;
 
@@ -35,6 +35,8 @@ public:
 
     void updateScreenPos();
 
+    bool operator< (const Tile& rhs);
+
 private:
     void loadSprite(const sf::Texture &t);
 
@@ -43,7 +45,7 @@ private:
 
     sf::Vector2f m_worldPos;
     sf::Vector2f m_screenPos;
-    int m_z;
+    float m_z;
 };
 
 #endif // TILE_H

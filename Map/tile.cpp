@@ -15,12 +15,12 @@ Tile::Tile(sf::Vector2f wp, int z, TileType type, const sf::Texture &t)
     loadSprite(t);
 }
 
-int Tile::z() const
+float Tile::z() const
 {
     return m_z;
 }
 
-void Tile::setZ(int z)
+void Tile::setZ(float z)
 {
     m_z = z;
 }
@@ -45,6 +45,12 @@ void Tile::updateScreenPos()
     m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2) + OFFSET;
     m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2) + OFFSET;
     m_tileSprite.setPosition(m_screenPos.x, m_screenPos.y);
+}
+
+bool Tile::operator<(const Tile &rhs)
+{
+    return (worldPos().y < rhs.worldPos().y) ||
+            (worldPos().x > rhs.worldPos().x);
 }
 
 sf::Vector2f Tile::worldPos() const
