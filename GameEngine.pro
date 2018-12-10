@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     ECS/Systems/system_renderer.cpp \
     Map/tile.cpp \
     Map/map.cpp \
-    Utilities/SimplexNoise.cpp
+    Utilities/SimplexNoise.cpp \
+    Map/mapgenerator.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -49,7 +50,8 @@ HEADERS += \
     ECS/Systems/system_renderer.h \
     Map/tile.h \
     Map/map.h \
-    Utilities/SimplexNoise.h
+    Utilities/SimplexNoise.h \
+    Map/mapgenerator.h
 
 DISTFILES += \
     textures.cfg \
