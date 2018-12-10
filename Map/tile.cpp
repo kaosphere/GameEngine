@@ -15,6 +15,11 @@ Tile::Tile(sf::Vector2f wp, int z, TileType type, const sf::Texture &t)
     loadSprite(t);
 }
 
+Tile::~Tile()
+{
+
+}
+
 float Tile::z() const
 {
     return m_z;

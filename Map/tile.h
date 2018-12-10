@@ -22,6 +22,7 @@ class Tile
 public:
     Tile();
     Tile(sf::Vector2f wp, int z, TileType type, const sf::Texture& t);
+    ~Tile();
 
     float z() const;
     void setZ(float z);
