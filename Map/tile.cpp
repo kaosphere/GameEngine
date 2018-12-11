@@ -47,7 +47,7 @@ sf::Vector2f Tile::screenPos() const
 
 void Tile::updateScreenPos()
 {
-    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2);
+    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2) - 500;
     m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2) + 500;
     m_tileSprite.setPosition(m_screenPos.x, m_screenPos.y);
 }

@@ -18,7 +18,7 @@ int main()
     initializeSystem();
 
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1920, 1024), "SFML window");
 
     MapGenerator::generateMap(25,25,"gen");
 
