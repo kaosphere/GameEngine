@@ -23,6 +23,10 @@ public:
     // 3D Perlin simplex noise
     static float noise(float x, float y, float z);
 
+    static float normalizedNoise(float x){return noise(x)/2.0 + 0.5;}
+    static float normalizedNoise(float x, float y){return noise(x,y)/2.0 + 0.5;}
+    static float normalizedNoise(float x, float y, float z){return noise(x,y,z)/2.0 + 0.5;}
+
     // Fractal/Fractional Brownian Motion (fBm) noise summation
     float fractal(size_t octaves, float x) const;
     float fractal(size_t octaves, float x, float y) const;

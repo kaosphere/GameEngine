@@ -9,7 +9,7 @@ class MapGenerator
 {
 public:
     MapGenerator();
-    static bool generateMap(int x, int y, std::string name);
+    static bool generateMap(int width, int length, std::string name);
 
     int m_x;
     int m_y;

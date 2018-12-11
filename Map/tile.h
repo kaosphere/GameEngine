@@ -6,8 +6,10 @@
 enum TileType {
     _invalidTileType,
     grass,
-    rock,
+    arid,
     sand,
+    water,
+    jungle,
     snow,
     tileCOUNT
 };

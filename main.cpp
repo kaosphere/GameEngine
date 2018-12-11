@@ -10,20 +10,17 @@
 #include "ECS/Core/system_base.h"
 #include "Resources/TextureManager.h"
 #include "Map/map.h""
-#include "Utilities/SimplexNoise.h"
+#include "Map/mapgenerator.h"
 
 int main()
 {
     int cnt =0;
     initializeSystem();
-    float x = 1.0;
-    float y = x;
-    float noise = SimplexNoise::noise(x,y);
-
-    std::cout << "Noise : " << noise << std::endl;
 
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+
+    MapGenerator::generateMap(25,25,"gen");
 
     TextureManager tex;
     Map m(&tex);
