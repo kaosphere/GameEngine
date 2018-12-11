@@ -8,7 +8,7 @@ Map::Map(TextureManager *t)
 {
     m_texMgr = t;
 
-    loadMapFromFile("media/maps/test.map");
+    loadMapFromFile("media/maps/gen.map");
 
     sortMapTiles();
 }
@@ -18,6 +18,7 @@ bool Map::loadMapFromFile(std::__cxx11::string path)
     std::ifstream file(path);
     std::string line;
     std::string token;
+    std::string resource;
     std::shared_ptr<Tile> p = NULL;
 
     while (std::getline(file, line)) {
@@ -25,12 +26,31 @@ bool Map::loadMapFromFile(std::__cxx11::string path)
         std::vector<std::string> tokens = Utils::splitLine(line, std::string(" "));
 
         if(tokens.size()) {
-            if(tokens[0] == "tile") {
-                m_texMgr->RequireResource("tile-top");
+            if(tokens[0] == "Tile") {
+                switch((TileType)std::stoi(tokens[1]))
+                {
+                case sand:
+                    resource = "tile-top-sand";
+                    break;
+                case arid:
+                    resource = "tile-top-arid";
+                    break;
+                case grass:
+                    resource = "tile-top-grass";
+                    break;
+                case jungle:
+                    resource = "tile-top-jungle";
+                    break;
+                case water:
+                    resource = "tile-top-water";
+                    break;
+                }
+
+                m_texMgr->RequireResource(resource);
                 p = std::make_shared<Tile>(sf::Vector2f(std::stoi(tokens[2]),std::stoi(tokens[3])),
                                            std::stoi(tokens[4]),
                                            (TileType)std::stoi(tokens[1]),
-                                           *m_texMgr->GetResource("tile-top"));
+                                           *m_texMgr->GetResource(resource));
                 m_tiles.emplace_back(p);
             }
         }
