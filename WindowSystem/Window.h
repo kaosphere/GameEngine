@@ -6,7 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "Renderer.h"
-//#include "../EventSystem/EventManager.h"
+#include "EventSystem/EventManager.h"
 
 class Window{
 public:
@@ -16,17 +16,17 @@ public:
 	void BeginDraw();
 	void EndDraw();
 
-    void Update(sf::View *v);
+    void Update();
 
 	bool IsDone() const;
 	bool IsFullscreen() const;
 	bool IsFocused() const;
 
-    /*void ToggleFullscreen(EventDetails* l_details);
-    void Close(EventDetails* l_details = nullptr);*/
+    void ToggleFullscreen(EventDetails* l_details);
+    void Close(EventDetails* l_details = nullptr);
 	sf::RenderWindow* GetRenderWindow();
     Renderer* GetRenderer();
-    //EventManager* GetEventManager();
+    EventManager* GetEventManager();
 	sf::Vector2u GetWindowSize()const;
 	sf::FloatRect GetViewSpace()const;
 private:
@@ -35,7 +35,7 @@ private:
 
 	sf::RenderWindow m_window;
     Renderer m_renderer;
-    //EventManager m_eventManager;
+    EventManager m_eventManager;
 	sf::Vector2u m_windowSize;
 	std::string m_windowTitle;
 	bool m_isDone;

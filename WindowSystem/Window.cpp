@@ -13,8 +13,8 @@ void Window::Setup(const std::string& l_title, const sf::Vector2u& l_size) {
 	m_isDone = false;
 	m_isFocused = true;
 
-    //m_eventManager.AddCallback(StateType(0), "Fullscreen_toggle", &Window::ToggleFullscreen, this);
-    //m_eventManager.AddCallback(StateType(0), "Window_close", &Window::Close, this);
+    m_eventManager.AddCallback(StateType(0), "Fullscreen_toggle", &Window::ToggleFullscreen, this);
+    m_eventManager.AddCallback(StateType(0), "Window_close", &Window::Close, this);
 
 	Create();
 }
@@ -41,8 +41,8 @@ bool Window::IsFullscreen() const { return m_isFullscreen; }
 bool Window::IsFocused() const { return m_isFocused; }
 
 sf::RenderWindow* Window::GetRenderWindow() { return &m_window; }
-//Renderer* Window::GetRenderer() { return &m_renderer; }
-//EventManager* Window::GetEventManager() { return &m_eventManager; }
+Renderer* Window::GetRenderer() { return &m_renderer; }
+EventManager* Window::GetEventManager() { return &m_eventManager; }
 sf::Vector2u Window::GetWindowSize() const { return m_windowSize; }
 sf::FloatRect Window::GetViewSpace() const {
 	sf::Vector2f viewCenter(m_window.getView().getCenter());
@@ -52,58 +52,22 @@ sf::FloatRect Window::GetViewSpace() const {
 	return viewSpace;
 }
 
-/*void Window::ToggleFullscreen(EventDetails* l_details) {
+void Window::ToggleFullscreen(EventDetails* l_details) {
 	m_isFullscreen = !m_isFullscreen;
 	m_window.close();
 	Create();
 }
 
-void Window::Close(EventDetails* l_details) { m_isDone = true; }*/
+void Window::Close(EventDetails* l_details) { m_isDone = true; }
 
-void Window::Update(sf::View *v) { //TODO : remove view from here
+void Window::Update() { //TODO : remove view from here
 	sf::Event event;
 
-    /*while(m_window.pollEvent(event)) {
+    while(m_window.pollEvent(event)) {
         if (event.type == sf::Event::LostFocus) { m_isFocused = false; m_eventManager.SetFocus(false); }
 		else if (event.type == sf::Event::GainedFocus) { m_isFocused = true; m_eventManager.SetFocus(true); }
 		m_eventManager.HandleEvent(event);
 	}
 
-    m_eventManager.Update();*/
-
-    while (m_window.pollEvent(event))
-    {
-        // Close window: exit
-        if (event.type == sf::Event::Closed)
-            m_window.close();
-
-        if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::W)
-                {
-                    v->move(0,-10);
-                }
-                if (event.key.code == sf::Keyboard::S)
-                {
-                    v->move(0,10);
-                }
-                if (event.key.code == sf::Keyboard::A)
-                {
-                    v->move(-10,0);
-                }
-                if (event.key.code == sf::Keyboard::D)
-                {
-                    v->move(10,0);
-                }
-            }
-
-        if (event.type == sf::Event::MouseWheelScrolled)
-        {
-            if (event.mouseWheelScroll.delta > 0)
-                v->zoom(1.f / 1.1);
-            else if (event.mouseWheelScroll.delta < 0)
-                v->zoom(1.1);
-        }
-    }
-    m_window.setView(*v);
+    m_eventManager.Update();
 }

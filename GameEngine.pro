@@ -21,7 +21,12 @@ SOURCES += main.cpp \
     Utilities/SimplexNoise.cpp \
     Map/mapgenerator.cpp \
     WindowSystem/Renderer.cpp \
-    WindowSystem/Window.cpp
+    WindowSystem/Window.cpp \
+    StateSystem/StateManager.cpp \
+    StateSystem/States/State_Loading.cpp \
+    game.cpp \
+    StateSystem/States/State_Game.cpp \
+    EventSystem/EventManager.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -55,8 +60,22 @@ HEADERS += \
     Utilities/SimplexNoise.h \
     Map/mapgenerator.h \
     WindowSystem/Renderer.h \
-    WindowSystem/Window.h
+    WindowSystem/Window.h \
+    EventSystem/Binding.h \
+    EventSystem/EventDetails.h \
+    EventSystem/EventInfo.h \
+    EventSystem/EventTypes.h \
+    StateSystem/BaseState.h \
+    StateSystem/StateDependent.h \
+    StateSystem/StateManager.h \
+    StateSystem/StateTypes.h \
+    StateSystem/States/State_Loading.h \
+    game.h \
+    StateSystem/States/State_Game.h \
+    EventSystem/EventManager.h
 
 DISTFILES += \
     textures.cfg \
-    media/maps/test.map
+    media/maps/test.map \
+    fonts.cfg \
+    keys.cfg

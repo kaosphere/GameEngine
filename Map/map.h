@@ -6,20 +6,26 @@
 #include <SFML/Window.hpp>
 #include "Resources/TextureManager.h"
 #include "tile.h"
+#include "SharedContext.h"
+#include "ThreadWorkers/FileLoader.h"
 
-class Map
+class Map : public FileLoader
 {
 public:
-    Map(TextureManager *t);
+    Map();
 
-    bool loadMapFromFile(std::string path);
+    virtual bool ProcessLine(std::stringstream& l_stream);
 
     void sortMapTiles();
 
+    void update(float l_time);
+
     void drawMap(sf::RenderWindow *w);
 
+    void setContext(SharedContext *context);
+
 private:
-    TextureManager *m_texMgr;
+    SharedContext *m_context;
     std::vector<std::shared_ptr<Tile> > m_tiles;
 };
 

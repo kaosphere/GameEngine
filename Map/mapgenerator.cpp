@@ -12,12 +12,13 @@ MapGenerator::MapGenerator()
 
 bool MapGenerator::generateMap(int width, int length, std::string name)
 {
+    SimplexNoise noiser(200.0,100.0,2.0,0.5);
     float moistureMap[width][length];
     for(int y = 0; y < length; ++y) {
         for(int x = 0; x < width; ++x) {
             float nx = ((float)x / (float)width) - 0.5, ny = ((float)y / (float)length) - 0.5;
-            moistureMap[x][y] = 0.75 * SimplexNoise::normalizedNoise(nx, ny) +
-                                0.25 * SimplexNoise::normalizedNoise(2*nx, 2*ny);/* +
+            moistureMap[x][y] = 0.75 * noiser.normalizedNoise(nx, ny) +
+                                0.25 * noiser.normalizedNoise(2*nx, 2*ny);/* +
                                 0.25 * SimplexNoise::normalizedNoise(4*nx, 2*ny);*/
         }
     }

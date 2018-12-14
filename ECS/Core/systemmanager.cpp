@@ -72,6 +72,7 @@ void SystemManager::purgeEntities()
 
 void SystemManager::update(float dt)
 {
+    if(m_systems.empty()){ return; }
     for(auto& itr : m_systems) { itr->update(dt); }
 }
 

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef HELPERS_H
+#define HELPERS_H
+
 #include <SFML/Graphics/Text.hpp>
 #include <fstream>
 
@@ -46,7 +48,7 @@ namespace Utils {
 		);
 	}
 
-    std::vector<std::string> splitLine(std::string line, std::string delimiter)
+    inline std::vector<std::string> splitLine(std::string line, std::string delimiter)
     {
         size_t pos = 0;
         std::vector<std::string> tokens;
@@ -59,3 +61,5 @@ namespace Utils {
         return tokens;
     }
 }
+
+#endif //HELPERS_H
