@@ -25,6 +25,8 @@ void State_Game::OnCreate() {
     context->m_gameMap->AddFile(Utils::GetWorkingDirectory() + "media/maps/gen.map");
 	loading->AddLoader(context->m_gameMap);
     loading->SetManualContinue(false);
+
+    m_zoomFactor = 1.0;
 }
 
 void State_Game::OnDestroy() {
@@ -58,27 +60,31 @@ void State_Game::Draw() {
 
 void State_Game::mapMove(EventDetails *l_details)
 {
-    if(l_details->m_mouseWheelDelta > 0)
+    if(l_details->m_mouseWheelDelta > 0) {
         m_view.zoom(1.f / 1.1);
-    else if (l_details->m_mouseWheelDelta < 0)
+        m_zoomFactor /= 1.1;
+    }
+    else if (l_details->m_mouseWheelDelta < 0) {
         m_view.zoom(1.1);
-
+        m_zoomFactor *= 1.1;
+    }
     if (l_details->m_keyCode == sf::Keyboard::W)
     {
-        m_view.move(0,-10);
+        m_view.move(0,-MOVE_SPEED * m_zoomFactor);
     }
     if (l_details->m_keyCode == sf::Keyboard::S)
     {
-        m_view.move(0,10);
+        m_view.move(0,MOVE_SPEED * m_zoomFactor);
     }
     if (l_details->m_keyCode == sf::Keyboard::A)
     {
-        m_view.move(-10,0);
+        m_view.move(-MOVE_SPEED,0 * m_zoomFactor);
     }
     if (l_details->m_keyCode == sf::Keyboard::D)
     {
-        m_view.move(10,0);
+        m_view.move(MOVE_SPEED,0 * m_zoomFactor);
     }
+    std::cout << "zoom factor = " << m_zoomFactor << std::endl;
 }
 
 void State_Game::Activate() {

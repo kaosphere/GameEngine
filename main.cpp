@@ -6,7 +6,7 @@ int main()
 {
     initializeSystem();
 
-    MapGenerator::generateMap(25,25,"gen");
+    MapGenerator::generateMap(50,50,"gen");
 
     Game g;
 

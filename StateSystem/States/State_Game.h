@@ -5,6 +5,8 @@
 #include "Map/map.h"
 #include "EventSystem/EventManager.h"
 
+#define MOVE_SPEED 20
+
 class State_Game : public BaseState{
 public:
 	State_Game(StateManager* l_stateManager);
@@ -23,5 +25,6 @@ public:
 
 private:
 	void UpdateCamera();
+    float m_zoomFactor;
     //int m_player;
 };
