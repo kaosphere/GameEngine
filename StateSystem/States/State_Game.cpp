@@ -28,7 +28,14 @@ void State_Game::OnCreate() {
 }
 
 void State_Game::OnDestroy() {
-    //auto context = m_stateMgr->GetContext();
+    auto context = m_stateMgr->GetContext();
+
+    EventManager *evMgr = context->m_eventManager;
+    evMgr->RemoveCallback(StateType::Game, "Mouse_Wheel_Moved");
+    evMgr->RemoveCallback(StateType::Game, "Move_Map_Right");
+    evMgr->RemoveCallback(StateType::Game, "Move_Map_Left");
+    evMgr->RemoveCallback(StateType::Game, "Move_Map_Up");
+    evMgr->RemoveCallback(StateType::Game, "Move_Map_Down");
 }
 
 void State_Game::Update(const sf::Time& l_time) {
@@ -72,42 +79,6 @@ void State_Game::mapMove(EventDetails *l_details)
     {
         m_view.move(10,0);
     }
-
-    /*while (m_window.pollEvent(event))
-    {
-        // Close window: exit
-        if (event.type == sf::Event::Closed)
-            m_window.close();
-
-        if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::W)
-                {
-                    v->move(0,-10);
-                }
-                if (event.key.code == sf::Keyboard::S)
-                {
-                    v->move(0,10);
-                }
-                if (event.key.code == sf::Keyboard::A)
-                {
-                    v->move(-10,0);
-                }
-                if (event.key.code == sf::Keyboard::D)
-                {
-                    v->move(10,0);
-                }
-            }
-
-        if (event.type == sf::Event::MouseWheelScrolled)
-        {
-            if (event.mouseWheelScroll.delta > 0)
-                v->zoom(1.f / 1.1);
-            else if (event.mouseWheelScroll.delta < 0)
-                v->zoom(1.1);
-        }
-    }
-    m_window.setView(*v);*/
 }
 
 void State_Game::Activate() {
