@@ -2,6 +2,7 @@
 #include <iostream>
 #include "mapgenerator.h"
 #include "Utilities/SimplexNoise.h"
+#include "Utilities/FastNoise.h"
 #include "Map/map.h"
 #include "Map/tile.h"
 
@@ -12,14 +13,17 @@ MapGenerator::MapGenerator()
 
 bool MapGenerator::generateMap(int width, int length, std::string name)
 {
-    SimplexNoise noiser(200.0,100.0,2.0,0.5);
+    //SimplexNoise noiser(200.0,100.0,2.0,0.5);
+    FastNoise noiser;
+    //noiser.SetNoiseType(FastNoise::SimplexFractal);
+    noiser.SetFrequency(0.05);
+    srand (time(NULL));
+    noiser.SetSeed(rand() % 999999999);
     float moistureMap[width][length];
     for(int y = 0; y < length; ++y) {
         for(int x = 0; x < width; ++x) {
-            float nx = ((float)x / (float)width) - 0.5, ny = ((float)y / (float)length) - 0.5;
-            moistureMap[x][y] = 0.75 * noiser.normalizedNoise(nx, ny) +
-                                0.25 * noiser.normalizedNoise(2*nx, 2*ny);/* +
-                                0.25 * SimplexNoise::normalizedNoise(4*nx, 2*ny);*/
+            //float nx = ((float)x / (float)width) - 0.5, ny = ((float)y / (float)length) - 0.5;
+            moistureMap[x][y] = noiser.GetNoise(x,y)/2 + 0.5;
         }
     }
 
