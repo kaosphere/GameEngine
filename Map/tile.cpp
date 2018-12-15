@@ -5,14 +5,20 @@ Tile::Tile()
 
 }
 
-Tile::Tile(sf::Vector2f wp, int z, TileType type, const sf::Texture &t)
+Tile::Tile(sf::Vector2f wp, int z, TileType type,
+           const sf::Texture &top,
+           const sf::Texture &root,
+           const sf::Texture &wall)
 {
     m_worldPos = wp;
     m_z = z;
     m_type = type;
+    m_wallSprites.clear();
 
+    loadTopSprite(top);
+    loadRootSprite(root);
+    loadWallSprites(wall);
     updateScreenPos();
-    loadSprite(t);
 }
 
 Tile::~Tile()
@@ -30,15 +36,40 @@ void Tile::setZ(float z)
     m_z = z;
 }
 
-sf::Sprite Tile::tileSprite() const
-{
-    return m_tileSprite;
+sf::Sprite* Tile::tileTopSprite() {
+    return &m_topSprite;
 }
 
-void Tile::loadSprite(const sf::Texture &t)
+sf::Sprite *Tile::tileRootSprite()
 {
-    m_tileSprite.setTexture(t);
+    return &m_rootSprite;
 }
+
+std::vector<sf::Sprite*> *Tile::tileWallSprites()
+{
+    return &m_wallSprites;
+}
+
+void Tile::loadTopSprite(const sf::Texture &t)
+{
+    m_topSprite.setTexture(t);
+}
+
+void Tile::loadRootSprite(const sf::Texture &t)
+{
+    m_rootSprite.setTexture(t);
+}
+
+void Tile::loadWallSprites(const sf::Texture &t)
+{
+    // Start to 1 because of the root sprite
+    for (int i=1; i < m_z; ++i) {
+        sf::Sprite *sp = new sf::Sprite;
+        sp->setTexture(t);
+        m_wallSprites.emplace_back(sp);
+    }
+}
+
 
 sf::Vector2f Tile::screenPos() const
 {
@@ -47,9 +78,18 @@ sf::Vector2f Tile::screenPos() const
 
 void Tile::updateScreenPos()
 {
-    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2) - 500;
-    m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2) + 500;
-    m_tileSprite.setPosition(m_screenPos.x, m_screenPos.y);
+    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2);
+    m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2);
+    m_topSprite.setPosition(m_screenPos.x, m_screenPos.y - m_z * TILE_WIDTH);
+
+    if(m_z > 0) {
+        m_rootSprite.setPosition(m_screenPos.x, m_screenPos.y);
+        // Start to 1 because of the root sprite
+        int i = 1;
+        for(auto spriteItr : m_wallSprites) {
+            spriteItr->setPosition(m_screenPos.x, m_screenPos.y - i++ * TILE_WIDTH);
+        }
+    }
 }
 
 /**

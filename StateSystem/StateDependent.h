@@ -1,6 +1,7 @@
 #pragma once
+#include "StateTypes.h"
 
-enum class StateType;
+//enum class StateType;
 class StateManager;
 
 class StateDependent {

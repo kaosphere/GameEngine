@@ -20,10 +20,12 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
     srand (time(NULL));
     noiser.SetSeed(rand() % 999999999);
     float moistureMap[width][length];
+    float elevationMap[width][length];
     for(int y = 0; y < length; ++y) {
         for(int x = 0; x < width; ++x) {
             //float nx = ((float)x / (float)width) - 0.5, ny = ((float)y / (float)length) - 0.5;
             moistureMap[x][y] = noiser.GetNoise(x,y)/2 + 0.5;
+            elevationMap[x][y] = moistureMap[x][y] * 10;
         }
     }
 
@@ -58,7 +60,7 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
                 lineStream << water << " ";
             }
 
-            lineStream << x << " " << y << " 0" << "\n";
+            lineStream << x << " " << y << (int)elevationMap[x][y] << "\n";
             line = lineStream.str();
             myfile << line;
         }

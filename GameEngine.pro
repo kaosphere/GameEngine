@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     StateSystem/States/State_Loading.cpp \
     game.cpp \
     StateSystem/States/State_Game.cpp \
-    EventSystem/EventManager.cpp
+    EventSystem/EventManager.cpp \
+    Utilities/FastNoise.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -72,7 +73,8 @@ HEADERS += \
     StateSystem/States/State_Loading.h \
     game.h \
     StateSystem/States/State_Game.h \
-    EventSystem/EventManager.h
+    EventSystem/EventManager.h \
+    Utilities/FastNoise.h
 
 DISTFILES += \
     textures.cfg \
