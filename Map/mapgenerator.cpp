@@ -60,7 +60,9 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
                 lineStream << water << " ";
             }
 
-            lineStream << x << " " << y << (int)elevationMap[x][y] << "\n";
+            int z = static_cast<int>(elevationMap[x][y]);
+
+            lineStream << x << " " << y << " " << z << "\n";
             line = lineStream.str();
             myfile << line;
         }
