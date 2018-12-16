@@ -109,6 +109,11 @@ sf::Vector2f Tile::worldPos() const
     return m_worldPos;
 }
 
+bool Tile::isInLocation(int x, int y)
+{
+    return (m_worldPos.x == x && m_worldPos.y == y);
+}
+
 void Tile::setWorldPos(const sf::Vector2f &worldPos)
 {
     m_worldPos = worldPos;

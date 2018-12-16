@@ -62,6 +62,11 @@ void Map::sortMapTiles()
     std::sort(m_tiles.begin(), m_tiles.end(), Utils::PComp<Tile>);
 }
 
+Tile* Map::getTileAt(int x, int y)
+{
+    return std::find_if(m_tiles.begin(), m_tiles.end(), TileComp(x,y))->get();
+}
+
 void Map::update(float l_time)
 {
 
@@ -72,9 +77,18 @@ void Map::drawMap(sf::RenderWindow *w)
     if(w == NULL) return;
 
     for(auto iter = m_tiles.begin(); iter != m_tiles.end(); ++iter) {
+        // Get tile that is directly below the one we want to draw
+        Tile* p = getTileAt((*iter)->worldPos().x - 1,(*iter)->worldPos().y + 1);
+        if(p) {
+            // If the tile below is higher, don't draw the current one
+            if(p->z() > (*iter)->z()) {
+                continue;
+            }
+        }
         std::vector<sf::Sprite*> *wall = (*iter)->tileWallSprites();
         w->draw(*((*iter)->tileTopSprite()));
         if((*iter)->z() > 0) {
+
             w->draw(*((*iter)->tileRootSprite()));
             for(auto wallItr : *wall) {
                 w->draw(*wallItr);

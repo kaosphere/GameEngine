@@ -45,6 +45,7 @@ void State_Game::Update(const sf::Time& l_time) {
 	UpdateCamera();
     context->m_gameMap->update(l_time.asSeconds());
     context->m_systemManager->update(l_time.asSeconds());
+    std::cout << 1.0f/l_time.asSeconds() << std::endl;
 }
 
 void State_Game::UpdateCamera() {

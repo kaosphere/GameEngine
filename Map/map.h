@@ -24,6 +24,7 @@ public:
 
     void setContext(SharedContext *context);
 
+    Tile *getTileAt(int x, int y);
 private:
     SharedContext *m_context;
     std::vector<std::shared_ptr<Tile> > m_tiles;

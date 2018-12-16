@@ -2,6 +2,7 @@
 #define TILE_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 enum TileType {
     _invalidTileType,
@@ -45,6 +46,7 @@ public:
 
     bool operator< (const Tile& rhs);
 
+    bool isInLocation(int x, int y);
 private:
     void loadTopSprite(const sf::Texture &t);
     void loadRootSprite(const sf::Texture &t);
@@ -58,6 +60,16 @@ private:
     sf::Vector2f m_worldPos;
     sf::Vector2f m_screenPos;
     float m_z;
+};
+
+// Comparator object for searches
+struct TileComp
+{
+  explicit TileComp(int x, int y) { m_x = x; m_y = y; }
+  inline bool operator()(const std::shared_ptr<Tile> & m) const { return (m->worldPos().x == m_x && m->worldPos().y == m_y); }
+private:
+  int m_x;
+  int m_y;
 };
 
 #endif // TILE_H
