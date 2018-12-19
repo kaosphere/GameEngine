@@ -21,7 +21,7 @@ public:
 
     void update(float l_time);
 
-    void drawMap(sf::RenderWindow *w, sf::View v);
+    void drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace);
 
     void setContext(SharedContext *context);
 

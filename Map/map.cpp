@@ -97,20 +97,28 @@ void Map::update(float l_time)
 
 }
 
-void Map::drawMap(sf::RenderWindow *w, sf::View v)
+void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
 {
     if(w == NULL) {
         return;
     }
-
+    sf::FloatRect r(viewSpace.left, viewSpace.top,viewSpace.width, viewSpace.height);
+    std::cout << r.top << "," << r.left << "," << r.width << "," << r.height << std::endl;
     // New Algo :
     // - get visible area, deduce what tiles are visible
     // - Iterate in right order on all those tiles
     for(int i = 0; i < m_width; ++i) {
         for(int y = 0; y < m_length; ++y) {
-            sf::FloatRect r(w->getViewport(v).left, w->getViewport(v).top, w->getViewport(v).width, w->getViewport(v).height);
-            if(r.intersects(m_tiles[i][y]->tileTopSprite()->getGlobalBounds()))
+            if(r.intersects(m_tiles[i][y]->tileTopSprite()->getGlobalBounds())) {
                 w->draw(*m_tiles[i][y]->tileTopSprite());
+                if(m_tiles[i][y]->z() > 0) {
+                    std::vector<sf::Sprite*> *wall = m_tiles[i][y]->tileWallSprites();
+                    w->draw(*m_tiles[i][y]->tileRootSprite());
+                    for(auto wallItr : *wall) {
+                        w->draw(*wallItr);
+                    }
+                }
+            }
         }
     }
 
