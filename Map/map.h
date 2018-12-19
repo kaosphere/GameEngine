@@ -13,6 +13,7 @@ class Map : public FileLoader
 {
 public:
     Map();
+    ~Map();
 
     virtual bool ProcessLine(std::stringstream& l_stream);
 
@@ -20,14 +21,16 @@ public:
 
     void update(float l_time);
 
-    void drawMap(sf::RenderWindow *w);
+    void drawMap(sf::RenderWindow *w, sf::View v);
 
     void setContext(SharedContext *context);
 
     Tile *getTileAt(int x, int y);
 private:
     SharedContext *m_context;
-    std::vector<std::shared_ptr<Tile> > m_tiles;
+    Tile*** m_tiles;
+    int m_width;
+    int m_length;
 };
 
 #endif // MAP_H

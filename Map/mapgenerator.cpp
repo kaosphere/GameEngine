@@ -33,9 +33,12 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
     std::ofstream myfile;
     myfile.open(OUTPUT_PATH + name + ".map");
 
+    std::stringstream lineStream;
+    lineStream << "Size " << width << " " << length << std::endl;
+    myfile << lineStream.str();
+
     for(int y = 0; y < length; ++y) {
         for(int x = 0; x < width; ++x) {
-            std::string line;
             std::stringstream lineStream;
             lineStream << "Tile ";
 
@@ -63,8 +66,7 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
             int z = static_cast<int>(elevationMap[x][y]);
 
             lineStream << x << " " << y << " " << z << "\n";
-            line = lineStream.str();
-            myfile << line;
+            myfile << lineStream.str();
         }
     }
 
