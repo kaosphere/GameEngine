@@ -26,11 +26,12 @@ public:
     void setContext(SharedContext *context);
 
     Tile *getTileAt(int x, int y);
+    sf::Vector2i getWorldCoord(sf::Vector2f screenPos);
 private:
     SharedContext *m_context;
     Tile*** m_tiles;
+    int m_heigth;
     int m_width;
-    int m_length;
 };
 
 #endif // MAP_H

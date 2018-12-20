@@ -90,9 +90,9 @@ void State_Game::mapMove(EventDetails *l_details)
 }
 
 void State_Game::Activate() {
-    SharedContext *context = m_stateMgr->GetContext();
+    /*SharedContext *context = m_stateMgr->GetContext();
     context->m_gameMap->sortMapTiles();
-    context->m_gameMap->drawMap(context->m_wind->GetRenderWindow(), context->m_wind->GetViewSpace());
+    context->m_gameMap->drawMap(context->m_wind->GetRenderWindow(), context->m_wind->GetViewSpace());*/
 }
 
 void State_Game::Deactivate() {}

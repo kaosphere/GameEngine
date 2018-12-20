@@ -78,16 +78,16 @@ sf::Vector2f Tile::screenPos() const
 
 void Tile::updateScreenPos()
 {
-    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_LENGTH/2);
-    m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2);
-    m_topSprite.setPosition(m_screenPos.x, m_screenPos.y - m_z * TILE_WIDTH);
+    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2);
+    m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_HEIGTH/2);
+    m_topSprite.setPosition(m_screenPos.x, m_screenPos.y - m_z * TILE_HEIGTH);
 
     if(m_z > 0) {
         m_rootSprite.setPosition(m_screenPos.x, m_screenPos.y);
         // Start to 1 because of the root sprite
         int i = 1;
         for(auto spriteItr : m_wallSprites) {
-            spriteItr->setPosition(m_screenPos.x, m_screenPos.y - i++ * TILE_WIDTH);
+            spriteItr->setPosition(m_screenPos.x, m_screenPos.y - i++ * TILE_HEIGTH);
         }
     }
 }

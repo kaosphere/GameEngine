@@ -10,13 +10,13 @@ Map::Map()
     //AddFile("media/maps/gen.map");
 
     m_tiles = nullptr;
+    m_heigth = 0;
     m_width = 0;
-    m_length = 0;
 }
 
 Map::~Map()
 {
-    for (int i=0; i<m_width; ++i) {
+    for (int i=0; i<m_heigth; ++i) {
         free(m_tiles[i]);
     }
     free(m_tiles);
@@ -29,14 +29,14 @@ bool Map::ProcessLine(std::stringstream &l_stream)
 
     if(tokens.size()) {
         if(tokens[0] == "Size") {
-            m_width = std::stoi(tokens[1]);
-            m_length = std::stoi(tokens[2]);
-            if(m_width == 0 || m_length ==0) {
+            m_heigth = std::stoi(tokens[1]);
+            m_width = std::stoi(tokens[2]);
+            if(m_heigth == 0 || m_width ==0) {
                 return false;
             }
-            m_tiles = new Tile**[m_width];
-            for(int i = 0; i < m_width; ++i) {
-                m_tiles[i] = new  Tile*[m_length];
+            m_tiles = new Tile**[m_heigth];
+            for(int i = 0; i < m_heigth; ++i) {
+                m_tiles[i] = new  Tile*[m_width];
             }
         }
 
@@ -92,6 +92,12 @@ Tile* Map::getTileAt(int x, int y)
     //return std::find_if(m_tiles.begin(), m_tiles.end(), TileComp(x,y))->get();
 }
 
+sf::Vector2i Map::getWorldCoord(sf::Vector2f screenPos)
+{
+    return sf::Vector2i(screenPos.x / TILE_WIDTH - screenPos.y / TILE_HEIGTH ,
+                        screenPos.x / TILE_WIDTH + screenPos.y / TILE_HEIGTH);
+}
+
 void Map::update(float l_time)
 {
 
@@ -102,37 +108,44 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
     if(w == NULL) {
         return;
     }
-    sf::FloatRect r(viewSpace.left, viewSpace.top,viewSpace.width, viewSpace.height);
-    std::cout << r.top << "," << r.left << "," << r.width << "," << r.height << std::endl;
-    // New Algo :
-    // - get visible area, deduce what tiles are visible
-    // - Iterate in right order on all those tiles
-    for(int i = 0; i < m_width; ++i) {
-        for(int y = 0; y < m_length; ++y) {
-            if(r.intersects(m_tiles[i][y]->tileTopSprite()->getGlobalBounds())) {
-                w->draw(*m_tiles[i][y]->tileTopSprite());
-                if(m_tiles[i][y]->z() > 0) {
-                    std::vector<sf::Sprite*> *wall = m_tiles[i][y]->tileWallSprites();
-                    w->draw(*m_tiles[i][y]->tileRootSprite());
-                    for(auto wallItr : *wall) {
-                        w->draw(*wallItr);
-                    }
-                }
-            }
-        }
-    }
 
-//    for(auto iter = m_tiles.begin(); iter != m_tiles.end(); ++iter) {
-//        std::vector<sf::Sprite*> *wall = (*iter)->tileWallSprites();
-//        w->draw(*((*iter)->tileTopSprite()));
-//        if((*iter)->z() > 0) {
+    sf::Vector2i coordStart = getWorldCoord(sf::Vector2f(viewSpace.left, viewSpace.top));
+    int nWidth = viewSpace.width / TILE_WIDTH;
+    int nHeight = viewSpace.height / TILE_HEIGTH;
 
-//            w->draw(*((*iter)->tileRootSprite()));
-//            for(auto wallItr : *wall) {
-//                w->draw(*wallItr);
+    std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
+
+//    sf::FloatRect r(viewSpace.left, viewSpace.top,viewSpace.width, viewSpace.height);
+//    std::cout << r.top << "," << r.left << "," << r.width << "," << r.height << std::endl;
+//    // New Algo :
+//    // - get visible area, deduce what tiles are visible
+//    // - Iterate in right order on all those tiles
+//    for(int i = 0; i < m_heigth; ++i) {
+//        for(int y = 0; y < m_width; ++y) {
+//            if(r.intersects(m_tiles[i][y]->tileTopSprite()->getGlobalBounds())) {
+//                w->draw(*m_tiles[i][y]->tileTopSprite());
+//                if(m_tiles[i][y]->z() > 0) {
+//                    std::vector<sf::Sprite*> *wall = m_tiles[i][y]->tileWallSprites();
+//                    w->draw(*m_tiles[i][y]->tileRootSprite());
+//                    for(auto wallItr : *wall) {
+//                        w->draw(*wallItr);
+//                    }
+//                }
 //            }
 //        }
 //    }
+    // Calculate xStart, yStart, nWidth and nHight based on the viewport
+    for(int i = 0; i < nHeight; ++i) {
+        int y = coordStart.y + i;
+        int x = coordStart.x + i/2;
+        for(int j = 0; j < nWidth; ++j) {
+           int yCurrent = y + j;
+           int xCurrent = x + j;
+           if(xCurrent >= 0 && xCurrent < m_heigth && yCurrent >= 0 && yCurrent < m_width) {
+               w->draw(*m_tiles[xCurrent][yCurrent]->tileTopSprite());
+           }
+        }
+    }
 }
 
 void Map::setContext(SharedContext *context)
