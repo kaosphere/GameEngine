@@ -110,8 +110,8 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
     }
 
     sf::Vector2i coordStart = getWorldCoord(sf::Vector2f(viewSpace.left, viewSpace.top));
-    int nWidth = viewSpace.width / TILE_WIDTH;
-    int nHeight = viewSpace.height / TILE_HEIGTH;
+    int nWidth = (viewSpace.width / TILE_WIDTH) + 2;
+    int nHeight = (viewSpace.height / TILE_HEIGTH) + 2;
 
     std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
 
@@ -134,18 +134,32 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
 //            }
 //        }
 //    }
+
     // Calculate xStart, yStart, nWidth and nHight based on the viewport
-    for(int i = 0; i < nHeight; ++i) {
-        int y = coordStart.y + i;
-        int x = coordStart.x + i/2;
+    bool incY = false;
+    int y = coordStart.y;
+    int x = coordStart.x;
+    for(int i = 0; i < (nHeight); ++i) {
+        if (x < 0) {
+            x = 0;
+            incY = true;
+        }
+        incY ? y++ : y;
         for(int j = 0; j < nWidth; ++j) {
            int yCurrent = y + j;
            int xCurrent = x + j;
+           std::cout << "Coord : " << xCurrent << ", " << yCurrent;
            if(xCurrent >= 0 && xCurrent < m_heigth && yCurrent >= 0 && yCurrent < m_width) {
                w->draw(*m_tiles[xCurrent][yCurrent]->tileTopSprite());
+               std::cout << " drawn.";
            }
+           std::cout << std::endl;
         }
+        incY = !incY;
+        x--;
     }
+
+    std::cout << "Stop." << std::endl;
 }
 
 void Map::setContext(SharedContext *context)
