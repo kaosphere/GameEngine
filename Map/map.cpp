@@ -113,7 +113,7 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
     int nWidth = (viewSpace.width / TILE_WIDTH) + 2;
     int nHeight = (viewSpace.height / TILE_HEIGTH) + 2;
 
-    std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
+    //std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
 
 //    sf::FloatRect r(viewSpace.left, viewSpace.top,viewSpace.width, viewSpace.height);
 //    std::cout << r.top << "," << r.left << "," << r.width << "," << r.height << std::endl;
@@ -137,29 +137,46 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
 
     // Calculate xStart, yStart, nWidth and nHight based on the viewport
     bool incY = false;
+    bool decX = true;
     int y = coordStart.y;
     int x = coordStart.x;
-    for(int i = 0; i < (nHeight); ++i) {
+    for(int i = 0; i < (nHeight*2); ++i) {
         if (x < 0) {
+            if (y > (nWidth-1)) {
+                continue;
+            }
             x = 0;
             incY = true;
         }
+        //else if(y >= coordStart.y) incY = false;
         incY ? y++ : y;
         for(int j = 0; j < nWidth; ++j) {
            int yCurrent = y + j;
            int xCurrent = x + j;
-           std::cout << "Coord : " << xCurrent << ", " << yCurrent;
+           //std::cout << "Coord : " << xCurrent << ", " << yCurrent;
            if(xCurrent >= 0 && xCurrent < m_heigth && yCurrent >= 0 && yCurrent < m_width) {
+               if(yCurrent < m_heigth -1) {
+                   if(m_tiles[xCurrent][yCurrent+1]->z() > m_tiles[xCurrent][yCurrent]->z()){
+                       continue;
+                   }
+               }
                w->draw(*m_tiles[xCurrent][yCurrent]->tileTopSprite());
-               std::cout << " drawn.";
+               if(m_tiles[xCurrent][yCurrent]->z() > 0) {
+                   std::vector<sf::Sprite*> *wall = m_tiles[xCurrent][yCurrent]->tileWallSprites();
+                   w->draw(*m_tiles[xCurrent][yCurrent]->tileRootSprite());
+                   for(auto wallItr : *wall) {
+                       w->draw(*wallItr);
+                   }
+               }
+               //std::cout << " drawn.";
            }
-           std::cout << std::endl;
+           //std::cout << std::endl;
         }
         incY = !incY;
-        x--;
+        if(!incY) x--;
     }
 
-    std::cout << "Stop." << std::endl;
+    //std::cout << "Stop." << std::endl;
 }
 
 void Map::setContext(SharedContext *context)
