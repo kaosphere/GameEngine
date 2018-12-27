@@ -115,26 +115,6 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
 
     //std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
 
-//    sf::FloatRect r(viewSpace.left, viewSpace.top,viewSpace.width, viewSpace.height);
-//    std::cout << r.top << "," << r.left << "," << r.width << "," << r.height << std::endl;
-//    // New Algo :
-//    // - get visible area, deduce what tiles are visible
-//    // - Iterate in right order on all those tiles
-//    for(int i = 0; i < m_heigth; ++i) {
-//        for(int y = 0; y < m_width; ++y) {
-//            if(r.intersects(m_tiles[i][y]->tileTopSprite()->getGlobalBounds())) {
-//                w->draw(*m_tiles[i][y]->tileTopSprite());
-//                if(m_tiles[i][y]->z() > 0) {
-//                    std::vector<sf::Sprite*> *wall = m_tiles[i][y]->tileWallSprites();
-//                    w->draw(*m_tiles[i][y]->tileRootSprite());
-//                    for(auto wallItr : *wall) {
-//                        w->draw(*wallItr);
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     // Calculate xStart, yStart, nWidth and nHight based on the viewport
     bool incY = false;
     bool decX = true;
@@ -148,7 +128,6 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
             x = 0;
             incY = true;
         }
-        //else if(y >= coordStart.y) incY = false;
         incY ? y++ : y;
         for(int j = 0; j < nWidth; ++j) {
            int yCurrent = y + j;
