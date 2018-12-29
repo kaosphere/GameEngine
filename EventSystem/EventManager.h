@@ -56,7 +56,8 @@ public:
 		return true;
 	}
 
-    void HandleEvent(sf::Event& l_event);
+	void HandleEvent(sf::Event& l_event);
+	void HandleEvent(GUI_Event& l_event);
 	void Update();
 
 	sf::Vector2i GetMousePos(sf::RenderWindow* l_wind = nullptr) const {

@@ -8,7 +8,7 @@ class FontManager;
 class SystemManager;
 //class EntityManager;
 class Map;
-//class GUI_Manager;
+class GUI_Manager;
 class RandomGenerator;
 //class ParticleSystem;
 
@@ -23,7 +23,7 @@ struct SharedContext{
         m_systemManager(nullptr),
         //m_entityManager(nullptr),
         m_gameMap(nullptr),
-        //m_guiManager(nullptr),
+        m_guiManager(nullptr),
         m_rand(nullptr)
         //m_particles(nullptr)
     {}

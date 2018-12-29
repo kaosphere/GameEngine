@@ -28,6 +28,11 @@ void EventManager::HandleEvent(sf::Event& l_event) {
 		auto& bind = b_itr.second;
 		for(auto &e_itr : bind->m_events) {
 			EventType sfmlEvent = static_cast<EventType>(l_event.type);
+			if (e_itr.first == EventType::GUI_Click || e_itr.first == EventType::GUI_Release ||
+				e_itr.first == EventType::GUI_Hover || e_itr.first == EventType::GUI_Leave)
+			{
+				continue;
+			}
 			if (e_itr.first != sfmlEvent) { continue; }
 			if (sfmlEvent == EventType::KeyDown || sfmlEvent == EventType::KeyUp) {
 				if (e_itr.second.m_code == l_event.key.code) {
@@ -69,6 +74,35 @@ void EventManager::HandleEvent(sf::Event& l_event) {
 				}
 				++(bind->c);
 			}
+		}
+	}
+}
+
+void EventManager::HandleEvent(GUI_Event& l_event) {
+	for (auto &b_itr : m_bindings) {
+		auto& bind = b_itr.second;
+		for (auto &e_itr : bind->m_events)
+		{
+			if (e_itr.first != EventType::GUI_Click && e_itr.first != EventType::GUI_Release &&
+				e_itr.first != EventType::GUI_Hover && e_itr.first != EventType::GUI_Leave &&
+				e_itr.first != EventType::GUI_Focus && e_itr.first != EventType::GUI_Defocus)
+			{ continue; }
+			if ((e_itr.first == EventType::GUI_Click && l_event.m_type != GUI_EventType::Click) ||
+				(e_itr.first == EventType::GUI_Release && l_event.m_type != GUI_EventType::Release) ||
+				(e_itr.first == EventType::GUI_Hover && l_event.m_type != GUI_EventType::Hover) ||
+				(e_itr.first == EventType::GUI_Leave && l_event.m_type != GUI_EventType::Leave) ||
+				(e_itr.first == EventType::GUI_Focus && l_event.m_type != GUI_EventType::Focus) ||
+				(e_itr.first == EventType::GUI_Defocus && l_event.m_type != GUI_EventType::Defocus))
+			{ continue; }
+
+			if (e_itr.second.m_gui.m_interface != l_event.m_interface) { continue; }
+			if (e_itr.second.m_gui.m_element == "*") {
+				if (l_event.m_element.empty()) { continue; }
+			} else if (e_itr.second.m_gui.m_element != l_event.m_element) { continue; }
+			bind->m_details.m_guiInterface = l_event.m_interface;
+			bind->m_details.m_guiElement = l_event.m_element;
+			bind->m_details.m_mouse = sf::Vector2i(l_event.m_clickCoords.x, l_event.m_clickCoords.y);
+			++(bind->c);
 		}
 	}
 }
@@ -146,11 +180,30 @@ void EventManager::LoadBindings() {
 			if (end == std::string::npos) { bind.release(); break; }
 			EventType type = EventType(stoi(keyval.substr(start, end-start)));
 
-
-            int code = std::stoi(keyval.substr(end + delimiter.length(),
-                keyval.find(delimiter,end + delimiter.length())));
-            EventInfo eventInfo(code);
-            bind->BindEvent(type, std::move(eventInfo));
+			if (type == EventType::GUI_Click || type == EventType::GUI_Release ||
+				type == EventType::GUI_Hover || type == EventType::GUI_Leave ||
+				type == EventType::GUI_Focus || type == EventType::GUI_Defocus)
+			{
+				start = end + delimiter.length();
+				end = keyval.find(delimiter, start);
+				std::string window = keyval.substr(start, end - start);
+				std::string element;
+				if (end != std::string::npos) {
+					start = end + delimiter.length();
+					end = keyval.length();
+					element = keyval.substr(start, end);
+				}
+				GUI_Event guiEvent;
+				guiEvent.m_interface = window;
+				guiEvent.m_element = element;
+				EventInfo eventInfo(guiEvent);
+				bind->BindEvent(type, std::move(eventInfo));
+			} else {
+				int code = std::stoi(keyval.substr(end + delimiter.length(),
+					keyval.find(delimiter,end + delimiter.length())));
+				EventInfo eventInfo(code);
+				bind->BindEvent(type, std::move(eventInfo));
+			}
 		}
 
 		if (!AddBinding(std::move(bind))) { std::cout << "Failed adding binding..." << std::endl; }

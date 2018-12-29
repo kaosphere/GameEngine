@@ -2,6 +2,7 @@
 #include "StateDependent.h"
 #include "States/State_Loading.h"
 #include "../WindowSystem/Window.h"
+#include "../GUI/GUI_Manager.h"
 
 StateManager::StateManager(SharedContext* l_shared)
 	: m_shared(l_shared)

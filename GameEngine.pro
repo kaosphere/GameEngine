@@ -3,8 +3,10 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += /home/chouchous/SFML2.5/include
-LIBS += -L"/home/chouchous/SFML2.5/lib/" -lsfml-graphics -lsfml-window -lsfml-system
+#INCLUDEPATH += /home/chouchous/SFML-2.5.0/include
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system
+
+QMAKE_CXXFLAGS += -Wreorder
 
 SOURCES += main.cpp \
     ECS/Core/entity.cpp \
@@ -27,7 +29,18 @@ SOURCES += main.cpp \
     game.cpp \
     StateSystem/States/State_Game.cpp \
     EventSystem/EventManager.cpp \
-    Utilities/FastNoise.cpp
+    Utilities/FastNoise.cpp \
+    GUI/Elements/GUI_CheckBox.cpp \
+    GUI/Elements/GUI_DropDownMenu.cpp \
+    GUI/Elements/GUI_Label.cpp \
+    GUI/Elements/GUI_Scrollbar.cpp \
+    GUI/Elements/GUI_Sprite.cpp \
+    GUI/Elements/GUI_TextField.cpp \
+    GUI/Specialized/FileManager.cpp \
+    GUI/Specialized/VerticalDropDown.cpp \
+    GUI/GUI_Element.cpp \
+    GUI/GUI_Interface.cpp \
+    GUI/GUI_Manager.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -74,7 +87,20 @@ HEADERS += \
     game.h \
     StateSystem/States/State_Game.h \
     EventSystem/EventManager.h \
-    Utilities/FastNoise.h
+    Utilities/FastNoise.h \
+    GUI/Elements/GUI_CheckBox.h \
+    GUI/Elements/GUI_DropDownMenu.h \
+    GUI/Elements/GUI_Label.h \
+    GUI/Elements/GUI_Scrollbar.h \
+    GUI/Elements/GUI_Sprite.h \
+    GUI/Elements/GUI_TextField.h \
+    GUI/Specialized/FileManager.h \
+    GUI/Specialized/VerticalDropDown.h \
+    GUI/GUI_Element.h \
+    GUI/GUI_Event.h \
+    GUI/GUI_Interface.h \
+    GUI/GUI_Manager.h \
+    GUI/GUI_Style.h
 
 DISTFILES += \
     textures.cfg \
