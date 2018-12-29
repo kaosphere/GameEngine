@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "WindowSystem/Window.h"
+#include "GUI/GUI_Manager.h"
 //#include "EventSystem/EventManager.h"
 #include "StateSystem/StateManager.h"
 #include "Resources/TextureManager.h"
@@ -37,6 +38,7 @@ private:
     TextureManager m_textureManager;
     FontManager m_fontManager;
     SystemManager m_systemManager;
+    GUI_Manager m_guiManager;
     Map m_gameMap;
     std::unique_ptr<StateManager> m_stateManager;
 };

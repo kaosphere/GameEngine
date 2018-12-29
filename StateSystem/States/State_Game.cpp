@@ -3,6 +3,7 @@
 #include "WindowSystem/Window.h"
 #include "StateSystem/States/State_Loading.h"
 #include "ECS/Core/systemmanager.h"
+#include "GUI/GUI_Manager.h"
 //#include "Map/map.h"
 
 State_Game::State_Game(StateManager* l_stateManager)
@@ -25,6 +26,10 @@ void State_Game::OnCreate() {
     context->m_gameMap->AddFile(Utils::GetWorkingDirectory() + "media/maps/gen.map");
 	loading->AddLoader(context->m_gameMap);
     loading->SetManualContinue(false);
+
+    GUI_Manager* gui = context->m_guiManager;
+    gui->LoadInterface("MainMenu.interface", "MainMenu");
+    gui->GetInterface("MainMenu")->SetPosition(sf::Vector2f(250.f, 168.f));
 
     m_zoomFactor = 1.0;
 }

@@ -37,7 +37,7 @@ struct SharedContext{
     SystemManager* m_systemManager;
     //EntityManager* m_entityManager;
     Map* m_gameMap;
-    //GUI_Manager* m_guiManager;
+    GUI_Manager* m_guiManager;
     RandomGenerator* m_rand;
     //ParticleSystem* m_particles;
 };

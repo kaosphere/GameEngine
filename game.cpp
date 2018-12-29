@@ -1,7 +1,8 @@
 #include "game.h"
 #include "StateSystem/States/State_Game.h"
 
-Game::Game() : m_window("Chapter 2", sf::Vector2u(800, 600))
+Game::Game() : m_window("Chapter 2", sf::Vector2u(800, 600)),
+    m_guiManager(m_window.GetEventManager(), &m_context)
 {
     SetUpClasses();
     SetUpECS();
@@ -20,11 +21,18 @@ Window* Game::GetWindow() { return &m_window; }
 void Game::Update() {
     m_window.Update();
     m_stateManager->Update(m_elapsed);
+    m_guiManager.Update(m_elapsed.asSeconds());
+
+    GUI_Event guiEvent;
+    while (m_guiManager.PollEvent(guiEvent)) {
+        m_window.GetEventManager()->HandleEvent(guiEvent);
+    }
 }
 
 void Game::Render() {
     m_window.BeginDraw();
     // Render here.
+    m_guiManager.Render(m_window.GetRenderWindow());
     m_stateManager->Draw();
     m_window.EndDraw();
 }
