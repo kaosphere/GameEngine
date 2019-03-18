@@ -53,6 +53,7 @@ void Game::SetUpClasses() {
     m_context.m_fontManager = &m_fontManager;
     m_context.m_gameMap = &m_gameMap;
     m_context.m_systemManager = &m_systemManager;
+    m_context.m_guiManager = &m_guiManager;
 
     m_stateManager = Utils::make_unique<StateManager>(&m_context);
     m_gameMap.setContext(&m_context);
