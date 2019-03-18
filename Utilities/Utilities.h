@@ -89,7 +89,7 @@ namespace Utils{
 	{
 		l_stream >> l_string;
 		if (l_string.at(0) == '"') {
-			while (l_string.at(l_string.length() - 1) != '"' || !l_stream.eof()) {
+            while (l_string.at(l_string.length() - 1) != '"' && !l_stream.eof()) {
 				std::string str;
 				l_stream >> str;
 				l_string.append(" " + str);
