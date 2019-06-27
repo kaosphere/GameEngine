@@ -5,6 +5,11 @@
 #include <string>
 #include "componenttypes.h"
 
+/**
+ * @brief The Component_Base class
+ * A component is an element that can be added to any entity. It represents
+ * a characteristic of this entity (ex : position, speed, strength, ...)
+ */
 class Component_Base{
 public:
     virtual ~Component_Base(){}

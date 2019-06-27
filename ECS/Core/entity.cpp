@@ -3,12 +3,12 @@
 
 Bitmask Entity::getMask() const
 {
-    return requirementMask;
+    return componentMask;
 }
 
 void Entity::setMask(const Bitmask &value)
 {
-    requirementMask = value;
+    componentMask = value;
 }
 
 std::__cxx11::string Entity::getInfo()
@@ -41,7 +41,7 @@ bool Entity::removeComponent(const ComponentType_t &c)
     for(auto iter = components.begin(); iter != components.end(); ++iter) {
         if ((*iter)->getType() == c) {
             components.erase(iter);
-            requirementMask.ClearBit(c);
+            componentMask.ClearBit(c);
             return true;
         }
     }

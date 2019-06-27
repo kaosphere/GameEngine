@@ -9,6 +9,11 @@
 
 class System_Base;
 
+/**
+ * @brief The SystemManager class
+ * The system manager handles all systems and adds entities to them.
+ * All systems are updated by the system manager.
+ */
 class SystemManager
 {
 public:

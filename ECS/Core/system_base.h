@@ -11,6 +11,20 @@
 using EntityList = std::vector<std::shared_ptr<Entity>>;
 
 class SystemManager;
+
+/**
+ * @brief The System_Base class
+ * A system is an object that handles entities having specific components.
+ * For example : movement system that will move entities on a map.
+ * An entity can be added to a system only if it complies with the system's
+ * requirement mask.
+ *
+ * All systems are contained in the systemManager, who calls all systems for
+ * update.
+ *
+ * On update, a system computes new values for all components, based on the elapsed
+ * time since last call.
+ */
 class System_Base : public Observer{
 public:
     System_Base();

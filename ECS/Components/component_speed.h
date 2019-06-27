@@ -4,6 +4,10 @@
 #include "ECS/Core/component_base.h"
 #include "ECS/Core/componenttypes.h"
 
+/**
+ * @brief The Component_Speed class
+ * The components represents the move speed of an entity on the map
+ */
 class Component_Speed : public Component_Base
 {
 public:
@@ -20,7 +24,14 @@ public:
 
 protected:
     static const ComponentType_t Component_Base::_mType = speed;
+    /**
+     * @brief dx Move speed on x axis
+     */
     float dx;
+
+    /**
+     * @brief dy Move speed on y axis
+     */
     float dy;
 };
 
