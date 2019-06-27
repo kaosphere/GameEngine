@@ -14,7 +14,7 @@ class Entity {
 
 private:
     std::string entityId;
-    Bitmask mask;
+    Bitmask requirementMask;
     std::vector<ComponentPtr> components;
 
     // Private copy constructor
@@ -39,7 +39,7 @@ public:
         if (!hasComponent(c) && c != _invalidComponentType) {
             C_type *ptr = new C_type;
             components.emplace_back(ptr);
-            mask.TurnOnBit(c);
+            requirementMask.TurnOnBit(c);
             return true;
         }
         return false;
