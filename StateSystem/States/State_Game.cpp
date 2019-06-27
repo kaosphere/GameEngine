@@ -28,8 +28,8 @@ void State_Game::OnCreate() {
     loading->SetManualContinue(false);
 
     GUI_Manager* gui = context->m_guiManager;
-    gui->LoadInterface("MainMenu.interface", "MainMenu");
-    gui->GetInterface("MainMenu")->SetPosition(sf::Vector2f(250.f, 168.f));
+    gui->LoadInterface("MapEditorTools.interface", "MapEditorTools");
+    gui->GetInterface("MapEditorTools")->SetPosition(sf::Vector2f(250.f, 168.f));
 
     m_zoomFactor = 1.0;
 }
