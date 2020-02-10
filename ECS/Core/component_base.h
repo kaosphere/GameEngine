@@ -12,12 +12,14 @@
  */
 class Component_Base{
 public:
+    Component_Base(){}
+    Component_Base(ComponentType_t type):_mType(type){}
     virtual ~Component_Base(){}
     virtual ComponentType_t getType() const { return _mType;}
     virtual std::string getInfo() = 0;
 protected:
     /// Default invalid component type
-    static const ComponentType_t _mType = _invalidComponentType;
+    ComponentType_t _mType = _invalidComponentType;
 };
 
 #endif // COMPONENT_BASE_H

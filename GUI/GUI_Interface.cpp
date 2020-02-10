@@ -2,7 +2,7 @@
 #include "GUI_Manager.h"
 #include "Elements/GUI_TextField.h"
 #include "../SharedContext.h"
-#include "../WindowSystem/Window.h"
+#include "../WindowSystem/GameWindow.h"
 
 GUI_Interface::GUI_Interface(const std::string& l_name, GUI_Manager* l_guiManager)
 	: GUI_Element(l_name, GUI_ElementType::Window, this), m_parent(nullptr), m_guiManager(l_guiManager),

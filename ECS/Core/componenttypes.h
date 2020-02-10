@@ -6,6 +6,8 @@ enum ComponentType_t {
     position,
     speed,
     area,
+    state,
+    sprite_sheet,
     componentTypeCOUNT
 };
 

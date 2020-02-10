@@ -5,7 +5,7 @@
 #include "Elements/GUI_CheckBox.h"
 #include "Elements/GUI_Sprite.h"
 #include "../SharedContext.h"
-#include "../WindowSystem/Window.h"
+#include "../WindowSystem/GameWindow.h"
 
 GUI_Manager::GUI_Manager(EventManager* l_evMgr, SharedContext* l_shared)
 	: m_eventMgr(l_evMgr), m_context(l_shared)

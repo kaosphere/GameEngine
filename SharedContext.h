@@ -1,5 +1,5 @@
 #pragma once
-class Window;
+class GameWindow;
 class EventManager;
 class TextureManager;
 class FontManager;
@@ -28,7 +28,7 @@ struct SharedContext{
         //m_particles(nullptr)
     {}
 
-    Window* m_wind;
+    GameWindow* m_wind;
     EventManager* m_eventManager;
     TextureManager* m_textureManager;
     FontManager* m_fontManager;

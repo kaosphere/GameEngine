@@ -1,6 +1,6 @@
 #include "State_Game.h"
 #include "StateSystem/StateManager.h"
-#include "WindowSystem/Window.h"
+#include "WindowSystem/GameWindow.h"
 #include "StateSystem/States/State_Loading.h"
 #include "ECS/Core/systemmanager.h"
 #include "GUI/GUI_Manager.h"

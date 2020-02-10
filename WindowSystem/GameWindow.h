@@ -8,10 +8,10 @@
 #include "Renderer.h"
 #include "EventSystem/EventManager.h"
 
-class Window{
+class GameWindow{
 public:
-    Window(const std::string& l_title = "Window", const sf::Vector2u& l_size = {640,480});
-	~Window();
+    GameWindow(const std::string& l_title = "Window", const sf::Vector2u& l_size = {640,480});
+    ~GameWindow();
 
 	void BeginDraw();
 	void EndDraw();

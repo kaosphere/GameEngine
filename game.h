@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "WindowSystem/Window.h"
+#include "WindowSystem/GameWindow.h"
 #include "GUI/GUI_Manager.h"
 //#include "EventSystem/EventManager.h"
 #include "StateSystem/StateManager.h"
@@ -24,7 +24,7 @@ public:
 
     sf::Time GetElapsed();
 
-    Window* GetWindow();
+    GameWindow* GetWindow();
 private:
     void SetUpClasses();
     void SetUpECS();
@@ -34,7 +34,7 @@ private:
     sf::Time m_elapsed;
     SharedContext m_context;
     RandomGenerator m_rand;
-    Window m_window;
+    GameWindow m_window;
     TextureManager m_textureManager;
     FontManager m_fontManager;
     SystemManager m_systemManager;

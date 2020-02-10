@@ -8,12 +8,12 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-class Window;
+class GameWindow;
 
 class Renderer {
-    friend Window;
+    friend GameWindow;
 public:
-    Renderer(Window* l_window);
+    Renderer(GameWindow* l_window);
 
 	void BeginDrawing();
 	bool IsDrawing()const;
@@ -22,7 +22,7 @@ public:
 	void Draw(const sf::Drawable& l_drawable, sf::RenderTarget* l_target = nullptr);
 	void EndDrawing();
 private:
-	Window* m_window;
+    GameWindow* m_window;
 	bool m_drawing;
 	unsigned int m_drawCalls;
 };

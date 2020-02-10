@@ -1,6 +1,6 @@
 #include "State_Loading.h"
 #include "StateSystem/StateManager.h"
-#include "WindowSystem/Window.h"
+#include "WindowSystem/GameWindow.h"
 #include "Resources/FontManager.h"
 #include "Utilities/Helpers.h"
 

@@ -1,8 +1,8 @@
 #include "Renderer.h"
-#include "../WindowSystem/Window.h"
+#include "../WindowSystem/GameWindow.h"
 #include "../Utilities/Utilities.h"
 
-Renderer::Renderer(Window* l_window) : m_window(l_window),
+Renderer::Renderer(GameWindow* l_window) : m_window(l_window),
     m_drawing(false), m_drawCalls(0) {}
 
 void Renderer::BeginDrawing() { m_drawing = true; m_drawCalls = 0; }

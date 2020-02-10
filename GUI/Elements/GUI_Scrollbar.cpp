@@ -1,7 +1,7 @@
 #include "GUI_Scrollbar.h"
 #include "../GUI_Interface.h"
 #include "../GUI_Manager.h"
-#include "../../WindowSystem/Window.h"
+#include "../../WindowSystem/GameWindow.h"
 #include "../../SharedContext.h"
 
 GUI_Scrollbar::GUI_Scrollbar(const std::string& l_name, GUI_Interface* l_owner)

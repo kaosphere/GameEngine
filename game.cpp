@@ -16,7 +16,7 @@ Game::~Game() { m_fontManager.ReleaseResource("Main"); }
 
 sf::Time Game::GetElapsed() { return m_clock.getElapsedTime(); }
 void Game::RestartClock() { m_elapsed = m_clock.restart(); }
-Window* Game::GetWindow() { return &m_window; }
+GameWindow* Game::GetWindow() { return &m_window; }
 
 void Game::Update() {
     m_window.Update();
