@@ -39,8 +39,8 @@ SOURCES += main.cpp \
     GUI/Specialized/VerticalDropDown.cpp \
     GUI/GUI_Element.cpp \
     GUI/GUI_Interface.cpp \
-    GUI/GUI_Manager.cpp
-    WindowSystem/GameWindow.cpp \
+    GUI/GUI_Manager.cpp \
+    WindowSystem/GameWindow.cpp
 
 HEADERS += \
     ECS/Core/entity.h \
@@ -99,7 +99,7 @@ HEADERS += \
     GUI/GUI_Event.h \
     GUI/GUI_Interface.h \
     GUI/GUI_Manager.h \
-    GUI/GUI_Style.h
+    GUI/GUI_Style.h \
     WindowSystem/GameWindow.h \
     Types/Bitmask.h
 
