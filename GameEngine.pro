@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 #INCLUDEPATH += /home/chouchous/SFML-2.5.0/include
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lX11
 
 QMAKE_CXXFLAGS += -Wreorder
 
