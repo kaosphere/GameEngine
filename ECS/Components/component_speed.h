@@ -13,7 +13,7 @@ class Component_Speed : public Component_Base
 public:
     Component_Speed();
     virtual ~Component_Speed(){}
-    virtual ComponentType_t getType() const { return _mType;}
+    virtual ComponentType_t getType() const { return mComponentType;}
     virtual std::string getInfo();
 
     float getDx() const;
@@ -23,7 +23,7 @@ public:
     void setDy(float value);
 
 protected:
-    static const ComponentType_t Component_Base::_mType = speed;
+    static const ComponentType_t mComponentType = speed;
     /**
      * @brief dx Move speed on x axis
      */

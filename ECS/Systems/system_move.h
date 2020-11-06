@@ -27,7 +27,7 @@ public:
     virtual void Notify(const Message& l_message);
 
 protected:
-    static const SystemType_t System_Base::m_id = Movement;
+    static const SystemType_t m_id = Movement;
 };
 
 #endif // SYSTEM_MOVE_H

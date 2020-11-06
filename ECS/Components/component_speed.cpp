@@ -6,7 +6,7 @@ Component_Speed::Component_Speed()
     dy = 1;
 }
 
-std::__cxx11::string Component_Speed::getInfo()
+std::string Component_Speed::getInfo()
 {
     std::string s;
     s += "Component Speed\n";

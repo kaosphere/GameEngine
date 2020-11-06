@@ -11,7 +11,7 @@ void Entity::setMask(const Bitmask &value)
     componentMask = value;
 }
 
-std::__cxx11::string Entity::getInfo()
+std::string Entity::getInfo()
 {
     std::string str;
     str += "Entity ID : " + entityId + "\n";

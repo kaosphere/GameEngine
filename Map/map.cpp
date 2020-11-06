@@ -89,7 +89,8 @@ void Map::sortMapTiles()
 
 Tile* Map::getTileAt(int x, int y)
 {
-    //return std::find_if(m_tiles.begin(), m_tiles.end(), TileComp(x,y))->get();
+	return NULL;
+	//return std::find_if(m_tiles.begin(), m_tiles.end(), TileComp(x,y))->get();
 }
 
 sf::Vector2i Map::getWorldCoord(sf::Vector2f screenPos)

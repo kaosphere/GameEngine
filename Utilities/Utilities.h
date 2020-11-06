@@ -1,10 +1,15 @@
 #pragma once
-#define RUNNING_LINUX
+#define RUNNING_WINDOWS
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <sstream>
 #include <memory>
+
+
+#ifdef RUNNING_WINDOWS
+#define __attribute__(x)
+#endif
 
 namespace Utils{
 	#ifdef RUNNING_WINDOWS

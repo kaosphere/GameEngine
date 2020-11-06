@@ -7,6 +7,7 @@
 #include "component_base.h"
 #include "Types/Bitmask.h"
 #include "Utilities/idgenerator.h"
+#include "Utilities/Utilities.h"
 
 using ComponentPtr =std::shared_ptr<Component_Base>;
 

@@ -14,7 +14,7 @@ class Component_Position : public Component_Base
 public:
     Component_Position();
     virtual ~Component_Position(){}
-    virtual ComponentType_t getType() const { return _mType;}
+    virtual ComponentType_t getType() const { return mComponentType;}
     virtual std::string getInfo();
 
     float getX() const;
@@ -24,7 +24,7 @@ public:
     void setY(float value);
 
 protected:
-    static const ComponentType_t Component_Base::_mType = position;
+    static const ComponentType_t mComponentType = position;
     /**
      * @brief x position of the entity on the x axis
      */

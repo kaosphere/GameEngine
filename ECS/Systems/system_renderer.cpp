@@ -17,7 +17,7 @@ void System_Renderer::handleEvent(const Entity &l_entity, const EntityEvent &l_e
 
 std::string System_Renderer::getInfo()
 {
-
+	return "";
 }
 
 void System_Renderer::Notify(const Message &l_message)

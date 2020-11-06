@@ -37,7 +37,7 @@ void System_Move::handleEvent(const Entity &l_entity, const EntityEvent &l_event
 
 std::string System_Move::getInfo()
 {
-
+	return "";
 }
 
 void System_Move::Notify(const Message& l_message)

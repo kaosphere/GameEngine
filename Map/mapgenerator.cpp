@@ -19,8 +19,14 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
     noiser.SetFrequency(0.05);
     srand (time(NULL));
     noiser.SetSeed(rand() % 999999999);
-    float moistureMap[width][length];
-    float elevationMap[width][length];
+    float** moistureMap = new float*[width];
+	for (int i = 0; i < length; ++i) {
+		moistureMap[i] = new float[length];
+	}
+    float** elevationMap = new float*[width];
+	for (int i = 0; i < length; ++i) {
+		elevationMap[i] = new float[length];
+	}
     for(int y = 0; y < length; ++y) {
         for(int x = 0; x < width; ++x) {
             //float nx = ((float)x / (float)width) - 0.5, ny = ((float)y / (float)length) - 0.5;
@@ -71,4 +77,5 @@ bool MapGenerator::generateMap(int width, int length, std::string name)
     }
 
     myfile.close();
+	return true;
 }

@@ -29,7 +29,7 @@ public:
     void draw();
 
 protected:
-    static const SystemType_t System_Base::m_id = Renderer;
+    static const SystemType_t m_id = Renderer;
 };
 
 #endif // SYSTEM_RENDERER_H
