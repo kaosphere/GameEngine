@@ -9,6 +9,7 @@
 
 #ifdef RUNNING_WINDOWS
 #define __attribute__(x)
+#pragma comment(lib, "Shlwapi.lib")
 #endif
 
 namespace Utils{
