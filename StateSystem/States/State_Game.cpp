@@ -23,13 +23,13 @@ void State_Game::OnCreate() {
     evMgr->AddCallback("Move_Map_Down", &State_Game::mapMove, this);
 
 	auto loading = m_stateMgr->GetState<State_Loading>(StateType::Loading);
-    context->m_gameMap->AddFile(Utils::GetWorkingDirectory() + "media/maps/gen.map");
+    context->m_gameMap->AddFile(Utils::GetWorkingDirectory() + "media/maps/gen100.map");
 	loading->AddLoader(context->m_gameMap);
     loading->SetManualContinue(false);
 
-    GUI_Manager* gui = context->m_guiManager;
+    /*GUI_Manager* gui = context->m_guiManager;
     gui->LoadInterface("MapEditorTools.interface", "MapEditorTools");
-    gui->GetInterface("MapEditorTools")->SetPosition(sf::Vector2f(250.f, 168.f));
+    gui->GetInterface("MapEditorTools")->SetPosition(sf::Vector2f(250.f, 168.f));*/
 
     m_zoomFactor = 1.0;
 }
@@ -50,7 +50,7 @@ void State_Game::Update(const sf::Time& l_time) {
 	UpdateCamera();
     context->m_gameMap->update(l_time.asSeconds());
     context->m_systemManager->update(l_time.asSeconds());
-    std::cout << 1.0f/l_time.asSeconds() << std::endl;
+    //std::cout << 1.0f/l_time.asSeconds() << std::endl;
 }
 
 void State_Game::UpdateCamera() {

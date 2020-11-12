@@ -5,19 +5,16 @@ Tile::Tile()
 
 }
 
-Tile::Tile(sf::Vector2f wp, int z, TileType type,
-           const sf::Texture &top,
-           const sf::Texture &root,
-           const sf::Texture &wall)
+Tile::Tile(sf::Vector2f wp, int z, TileType type, sf::Vector2u textPos)
 {
     m_worldPos = wp;
     m_z = z;
     m_type = type;
-    m_wallSprites.clear();
+    m_texturePos = textPos;
 
-    loadTopSprite(top);
-    loadRootSprite(root);
-    loadWallSprites(wall);
+    m_tileVertices.setPrimitiveType(sf::Quads);
+    m_tileVertices.resize(4);
+
     updateScreenPos();
 }
 
@@ -36,41 +33,6 @@ void Tile::setZ(float z)
     m_z = z;
 }
 
-sf::Sprite* Tile::tileTopSprite() {
-    return &m_topSprite;
-}
-
-sf::Sprite *Tile::tileRootSprite()
-{
-    return &m_rootSprite;
-}
-
-std::vector<sf::Sprite*> *Tile::tileWallSprites()
-{
-    return &m_wallSprites;
-}
-
-void Tile::loadTopSprite(const sf::Texture &t)
-{
-    m_topSprite.setTexture(t);
-}
-
-void Tile::loadRootSprite(const sf::Texture &t)
-{
-    m_rootSprite.setTexture(t);
-}
-
-void Tile::loadWallSprites(const sf::Texture &t)
-{
-    // Start to 1 because of the root sprite
-    for (int i=1; i < m_z; ++i) {
-        sf::Sprite *sp = new sf::Sprite;
-        sp->setTexture(t);
-        m_wallSprites.emplace_back(sp);
-    }
-}
-
-
 sf::Vector2f Tile::screenPos() const
 {
     return m_screenPos;
@@ -78,18 +40,20 @@ sf::Vector2f Tile::screenPos() const
 
 void Tile::updateScreenPos()
 {
-    m_screenPos.x = (m_worldPos.x + m_worldPos.y) * (TILE_WIDTH/2);
-    m_screenPos.y = (-m_worldPos.x + m_worldPos.y) * (TILE_HEIGTH/2);
-    m_topSprite.setPosition(m_screenPos.x, m_screenPos.y - m_z * TILE_HEIGTH);
+    m_screenPos.x = (m_worldPos.x - m_worldPos.y) * (TILE_WIDTH/2);
+    m_screenPos.y = (m_worldPos.x + m_worldPos.y) * (TILE_HEIGTH/2);
 
-    if(m_z > 0) {
-        m_rootSprite.setPosition(m_screenPos.x, m_screenPos.y);
-        // Start to 1 because of the root sprite
-        int i = 1;
-        for(auto spriteItr : m_wallSprites) {
-            spriteItr->setPosition(m_screenPos.x, m_screenPos.y - i++ * TILE_HEIGTH);
-        }
-    }
+    // on définit ses quatre coins
+    m_tileVertices[0].position = sf::Vector2f(m_screenPos.x, m_screenPos.y); // coin en haut a gauche
+    m_tileVertices[1].position = sf::Vector2f(m_screenPos.x + TILE_WIDTH, m_screenPos.y);  // coin en haut a droite
+    m_tileVertices[2].position = sf::Vector2f(m_screenPos.x + TILE_WIDTH, m_screenPos.y + TILE_HEIGTH); // coin en bas a droite
+    m_tileVertices[3].position = sf::Vector2f(m_screenPos.x, m_screenPos.y + TILE_HEIGTH);  // coin en bas a gauche
+
+    // on définit ses quatre coordonnées de texture
+    m_tileVertices[0].texCoords = sf::Vector2f((m_texturePos.x)* TILE_WIDTH, (m_texturePos.y)* TILE_HEIGTH);
+    m_tileVertices[1].texCoords = sf::Vector2f((m_texturePos.x + 1) * TILE_WIDTH, (m_texturePos.y)* TILE_HEIGTH);
+    m_tileVertices[2].texCoords = sf::Vector2f((m_texturePos.x + 1) * TILE_WIDTH, (m_texturePos.y + 1) * TILE_HEIGTH);
+    m_tileVertices[3].texCoords = sf::Vector2f((m_texturePos.x)* TILE_WIDTH, (m_texturePos.y + 1) * TILE_HEIGTH);
 }
 
 /**
@@ -112,6 +76,14 @@ sf::Vector2f Tile::worldPos() const
 bool Tile::isInLocation(int x, int y)
 {
     return (m_worldPos.x == x && m_worldPos.y == y);
+}
+
+void Tile::addVerticesToArray(sf::VertexArray * vertArray)
+{
+    vertArray->append(m_tileVertices[0]);
+    vertArray->append(m_tileVertices[1]);
+    vertArray->append(m_tileVertices[2]);
+    vertArray->append(m_tileVertices[3]);
 }
 
 void Tile::setWorldPos(const sf::Vector2f &worldPos)

@@ -4,11 +4,14 @@
 #include <vector>
 #include <memory>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "Resources/TextureManager.h"
 #include "tile.h"
 #include "SharedContext.h"
 #include "ThreadWorkers/FileLoader.h"
 
+
+// Every loop and calculation based on : http://clintbellanger.net/articles/isometric_math/
 class Map : public FileLoader
 {
 public:
@@ -30,8 +33,12 @@ public:
 private:
     SharedContext *m_context;
     Tile*** m_tiles;
+    sf::VertexArray m_vertices;
+    sf::VertexArray m_sortedVertices;
+    sf::Texture m_tileset;
     int m_heigth;
     int m_width;
+    bool sorted;
 };
 
 #endif // MAP_H

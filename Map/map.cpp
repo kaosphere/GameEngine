@@ -8,10 +8,11 @@
 Map::Map()
 {
     //AddFile("media/maps/gen.map");
-
     m_tiles = nullptr;
     m_heigth = 0;
     m_width = 0;
+    sorted = false;
+    m_vertices.setPrimitiveType(sf::Quads);
 }
 
 Map::~Map()
@@ -29,53 +30,37 @@ bool Map::ProcessLine(std::stringstream &l_stream)
 
     if(tokens.size()) {
         if(tokens[0] == "Size") {
+            // load the tileset TODO : put tileset in map file directly
+            m_context->m_textureManager->RequireResource("tileset");
+            m_tileset = *m_context->m_textureManager->GetResource("tileset");
+
+            // Get map dimentions
             m_heigth = std::stoi(tokens[1]);
             m_width = std::stoi(tokens[2]);
             if(m_heigth == 0 || m_width ==0) {
                 return false;
             }
+
+            // Allocate tile map
             m_tiles = new Tile**[m_heigth];
-            for(int i = 0; i < m_heigth; ++i) {
-                m_tiles[i] = new  Tile*[m_width];
+            for (int i = 0; i < m_heigth; ++i) {
+	            m_tiles[i] = new  Tile*[m_width];
             }
         }
 
-        else if(tokens[0] == "Tile" && m_tiles != nullptr) {
-            switch((TileType)std::stoi(tokens[1]))
-            {
-            case sand:
-                resource = "tile-top-sand";
-                break;
-            case arid:
-                resource = "tile-top-arid";
-                break;
-            case grass:
-                resource = "tile-top-grass";
-                break;
-            case jungle:
-                resource = "tile-top-jungle";
-                break;
-            case water:
-                resource = "tile-top-water";
-                break;
-            default:
-                break;
-            }
+        else if(tokens[0] == "Tile") {
+	        int tileType = std::stoi(tokens[1]);
+	        int i = std::stoi(tokens[2]);
+	        int j = std::stoi(tokens[3]);
 
-            m_context->m_textureManager->RequireResource(resource);
-            for (int i = 0; i < std::stoi(tokens[4]); ++i) {
-                m_context->m_textureManager->RequireResource("tile-mid");
-            }
-            m_context->m_textureManager->RequireResource("tile-bot");
+            // on en déduit sa position dans la texture du tileset
+            int tu = (int)tileType % (m_tileset.getSize().x / TILE_WIDTH);
+            int tv = (int)tileType / (m_tileset.getSize().x / TILE_WIDTH);
 
-            // Add tile in the map
-            m_tiles[std::stoi(tokens[2])][std::stoi(tokens[3])] = new Tile(sf::Vector2f(std::stoi(tokens[2]),std::stoi(tokens[3])),
-                                       std::stoi(tokens[4]),
-                                       (TileType)std::stoi(tokens[1]),
-                                       *m_context->m_textureManager->GetResource(resource),
-                                        *m_context->m_textureManager->GetResource("tile-bot"),
-                                        *m_context->m_textureManager->GetResource("tile-mid"));
-
+            m_tiles[std::stoi(tokens[2])][std::stoi(tokens[3])] = new Tile(sf::Vector2f(std::stoi(tokens[2]), std::stoi(tokens[3])),
+	            std::stoi(tokens[4]),
+	            (TileType)std::stoi(tokens[1]),
+	            sf::Vector2u(tu, tv));
         }
     }
 
@@ -84,7 +69,38 @@ bool Map::ProcessLine(std::stringstream &l_stream)
 
 void Map::sortMapTiles()
 {
-    //std::sort(m_tiles.begin(), m_tiles.end(), Utils::PComp<Tile>);
+    bool incY = false;
+    bool decX = true;
+    bool firstHalfDone = false;
+    int yCurrent = 0;
+    int xCurrent = 0;
+
+    // sort tiles from top of the diamond shape to the botom
+    for (int i = 0; i < (m_heigth); ++i) {
+	    for (int j = 0; j < m_width; ++j) {
+		    if (!firstHalfDone) {
+			    yCurrent = i - j;
+			    xCurrent = j;
+		    }
+		    else {
+			    yCurrent = m_width - 1 - j;
+			    xCurrent = i + j;
+		    }
+		    std::cout << "Coord : " << xCurrent << ", " << yCurrent << std::endl;
+		    if (xCurrent >= 0 && xCurrent < m_heigth && yCurrent >= 0 && yCurrent < m_width) {
+			    m_tiles[xCurrent][yCurrent]->addVerticesToArray(&m_vertices);
+		    }
+		    else {
+			    break;
+		    }
+		    // Once we sorted the first top height of the map, compute the second half
+		    if (xCurrent == m_width - 1 && !firstHalfDone) {
+			    i = 0;
+			    firstHalfDone = true;
+		    }
+	    }
+    }
+    sorted = true;
 }
 
 Tile* Map::getTileAt(int x, int y)
@@ -110,53 +126,17 @@ void Map::drawMap(sf::RenderWindow *w, sf::FloatRect viewSpace)
         return;
     }
 
-    sf::Vector2i coordStart = getWorldCoord(sf::Vector2f(viewSpace.left, viewSpace.top));
-    int nWidth = (viewSpace.width / TILE_WIDTH) + 2;
-    int nHeight = (viewSpace.height / TILE_HEIGTH) + 2;
-
-    //std::cout << coordStart.x << "," << coordStart.y << "," << nWidth << "," << nHeight << std::endl;
-
-    // Calculate xStart, yStart, nWidth and nHight based on the viewport
-    bool incY = false;
-    bool decX = true;
-    int y = coordStart.y;
-    int x = coordStart.x;
-    for(int i = 0; i < (nHeight*2); ++i) {
-        if (x < 0) {
-            if (y > (nWidth-1)) {
-                continue;
-            }
-            x = 0;
-            incY = true;
-        }
-        incY ? y++ : y;
-        for(int j = 0; j < nWidth; ++j) {
-           int yCurrent = y + j;
-           int xCurrent = x + j;
-           //std::cout << "Coord : " << xCurrent << ", " << yCurrent;
-           if(xCurrent >= 0 && xCurrent < m_heigth && yCurrent >= 0 && yCurrent < m_width) {
-               if(yCurrent < m_heigth -1) {
-                   if(m_tiles[xCurrent][yCurrent+1]->z() > m_tiles[xCurrent][yCurrent]->z()){
-                       continue;
-                   }
-               }
-               w->draw(*m_tiles[xCurrent][yCurrent]->tileTopSprite());
-               if(m_tiles[xCurrent][yCurrent]->z() > 0) {
-                   std::vector<sf::Sprite*> *wall = m_tiles[xCurrent][yCurrent]->tileWallSprites();
-                   w->draw(*m_tiles[xCurrent][yCurrent]->tileRootSprite());
-                   for(auto wallItr : *wall) {
-                       w->draw(*wallItr);
-                   }
-               }
-               //std::cout << " drawn.";
-           }
-           //std::cout << std::endl;
-        }
-        incY = !incY;
-        if(!incY) x--;
+    if (!sorted) {
+	    sortMapTiles();
     }
 
-    //std::cout << "Stop." << std::endl;
+    sf::RenderStates states;
+
+    // on applique la texture du tileset
+    states.texture = &m_tileset;
+
+    // et on dessine enfin le tableau de vertex
+    w->draw(m_vertices, states);
 }
 
 void Map::setContext(SharedContext *context)

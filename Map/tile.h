@@ -5,14 +5,13 @@
 #include <memory>
 
 enum TileType {
-    _invalidTileType,
-    grass,
+    _invalidTileType = 0,
+    grass = 2,
+    jungle,
     arid,
     sand,
     water,
-    jungle,
-    snow,
-    tileCOUNT
+    snow
 };
 
 
@@ -24,18 +23,11 @@ class Tile
 {
 public:
     Tile();
-    Tile(sf::Vector2f wp, int z, TileType type,
-         const sf::Texture& top,
-         const sf::Texture& root,
-         const sf::Texture& wall);
+    Tile(sf::Vector2f wp, int z, TileType type, sf::Vector2u textPostileType);
     ~Tile();
 
     float z() const;
     void setZ(float z);
-
-    sf::Sprite* tileTopSprite();
-    sf::Sprite *tileRootSprite();
-    std::vector<sf::Sprite *> *tileWallSprites();
 
     sf::Vector2f worldPos() const;
     void setWorldPos(const sf::Vector2f &worldPos);
@@ -47,29 +39,27 @@ public:
     bool operator< (const Tile& rhs);
 
     bool isInLocation(int x, int y);
-private:
-    void loadTopSprite(const sf::Texture &t);
-    void loadRootSprite(const sf::Texture &t);
-    void loadWallSprites(const sf::Texture &t);
 
+    void addVerticesToArray(sf::VertexArray* vertArray);
+
+private:
     TileType m_type;
-    std::vector<sf::Sprite*> m_wallSprites;
-    sf::Sprite m_topSprite;
-    sf::Sprite m_rootSprite;
+    sf::VertexArray m_tileVertices;
 
     sf::Vector2f m_worldPos;
     sf::Vector2f m_screenPos;
+    sf::Vector2u m_texturePos;
     float m_z;
 };
 
 // Comparator object for searches
 struct TileComp
 {
-  explicit TileComp(int x, int y) { m_x = x; m_y = y; }
-  inline bool operator()(const std::shared_ptr<Tile> & m) const { return (m->worldPos().x == m_x && m->worldPos().y == m_y); }
+    explicit TileComp(int x, int y) { m_x = x; m_y = y; }
+    inline bool operator()(const std::shared_ptr<Tile> & m) const { return (m->worldPos().x == m_x && m->worldPos().y == m_y); }
 private:
-  int m_x;
-  int m_y;
+    int m_x;
+    int m_y;
 };
 
 #endif // TILE_H
